@@ -10,6 +10,7 @@ class CreateMerchantsTable extends Migration
     {
         Schema::create('merchants', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name')->nullable();
             $table->string('description')->nullable();
             $table->string('contact_number')->nullable();
             $table->string('status')->nullable();

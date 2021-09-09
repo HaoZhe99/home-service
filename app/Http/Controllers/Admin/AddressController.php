@@ -27,7 +27,7 @@ class AddressController extends Controller
     {
         abort_if(Gate::denies('address_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $states = State::pluck('state', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $states = State::pluck('postcode', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         return view('admin.addresses.create', compact('states'));
     }
@@ -43,7 +43,7 @@ class AddressController extends Controller
     {
         abort_if(Gate::denies('address_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $states = State::pluck('state', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $states = State::pluck('postcode', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $address->load('state');
 

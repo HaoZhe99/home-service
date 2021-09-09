@@ -27,6 +27,14 @@
                 <span class="help-block">{{ trans('cruds.state.fields.postcode_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="area">{{ trans('cruds.state.fields.area') }}</label>
+                <input class="form-control {{ $errors->has('area') ? 'is-invalid' : '' }}" type="text" name="area" id="area" value="{{ old('area', $state->area) }}">
+                @if($errors->has('area'))
+                    <span class="text-danger">{{ $errors->first('area') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.state.fields.area_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label for="country_id">{{ trans('cruds.state.fields.country') }}</label>
                 <select class="form-control select2 {{ $errors->has('country') ? 'is-invalid' : '' }}" name="country_id" id="country_id">
                     @foreach($countries as $id => $entry)

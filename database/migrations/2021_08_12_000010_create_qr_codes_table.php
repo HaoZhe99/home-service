@@ -12,7 +12,7 @@ class CreateQrCodesTable extends Migration
             $table->bigIncrements('id');
             $table->string('code')->nullable();
             $table->string('status')->nullable();
-            $table->datetime('expied_at')->nullable();
+            $table->datetime('expired_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

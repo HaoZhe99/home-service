@@ -14,6 +14,10 @@ class DatabaseSeeder extends Seeder
             PermissionRoleTableSeeder::class,
             UsersTableSeeder::class,
             RoleUserTableSeeder::class,
+            CountryTableSeeder::class,
+            PaymentMethodTableSeeder::class,
+            StateTableSeeder::class,
+            CategoryTableSeeder::class,
         ]);
     }
 }

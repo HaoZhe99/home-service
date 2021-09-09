@@ -10,6 +10,7 @@ use App\Models\QrCode;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Str;
 
 class QrCodeController extends Controller
 {
@@ -31,7 +32,11 @@ class QrCodeController extends Controller
 
     public function store(StoreQrCodeRequest $request)
     {
-        $qrCode = QrCode::create($request->all());
+        $qrCode = QrCode::create([
+            'code' => Str::random(10),
+            'status' => $request->status,
+            'expired_at' => $request->expired_at,
+        ]);
 
         return redirect()->route('admin.qr-codes.index');
     }

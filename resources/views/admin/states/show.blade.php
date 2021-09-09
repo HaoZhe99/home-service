@@ -41,6 +41,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.state.fields.area') }}
+                        </th>
+                        <td>
+                            {{ $state->area }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.state.fields.country') }}
                         </th>
                         <td>

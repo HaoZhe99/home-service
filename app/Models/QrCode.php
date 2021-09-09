@@ -30,7 +30,7 @@ class QrCode extends Model
     protected $fillable = [
         'code',
         'status',
-        'expied_at',
+        'expired_at',
         'created_at',
         'updated_at',
         'deleted_at',

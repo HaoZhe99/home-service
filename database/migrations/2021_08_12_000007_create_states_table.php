@@ -12,6 +12,7 @@ class CreateStatesTable extends Migration
             $table->bigIncrements('id');
             $table->string('state')->nullable();
             $table->string('postcode')->nullable();
+            $table->string('area')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

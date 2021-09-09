@@ -26,6 +26,9 @@
                             {{ trans('cruds.merchant.fields.id') }}
                         </th>
                         <th>
+                            {{ trans('cruds.merchant.fields.name') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.merchant.fields.description') }}
                         </th>
                         <th>

@@ -32,6 +32,9 @@
                             {{ trans('cruds.state.fields.postcode') }}
                         </th>
                         <th>
+                            {{ trans('cruds.state.fields.area') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.state.fields.country') }}
                         </th>
                         <th>
@@ -53,6 +56,9 @@
                             </td>
                             <td>
                                 {{ $state->postcode ?? '' }}
+                            </td>
+                            <td>
+                                {{ $state->area ?? '' }}
                             </td>
                             <td>
                                 {{ $state->country->country ?? '' }}

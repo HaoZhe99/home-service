@@ -32,7 +32,7 @@
                             {{ trans('cruds.qrCode.fields.status') }}
                         </th>
                         <th>
-                            {{ trans('cruds.qrCode.fields.expied_at') }}
+                            {{ trans('cruds.qrCode.fields.expired_at') }}
                         </th>
                         <th>
                             &nbsp;
@@ -55,7 +55,7 @@
                                 {{ App\Models\QrCode::STATUS_SELECT[$qrCode->status] ?? '' }}
                             </td>
                             <td>
-                                {{ $qrCode->expied_at ?? '' }}
+                                {{ $qrCode->expired_at ?? '' }}
                             </td>
                             <td>
                                 @can('qr_code_show')

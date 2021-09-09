@@ -32,10 +32,10 @@
                 <span class="help-block">{{ trans('cruds.qrCode.fields.status_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="expied_at">{{ trans('cruds.qrCode.fields.expied_at') }}</label>
-                <input class="form-control datetime {{ $errors->has('expied_at') ? 'is-invalid' : '' }}" type="text" name="expied_at" id="expied_at" value="{{ old('expied_at', $qrCode->expied_at) }}">
-                @if($errors->has('expied_at'))
-                    <span class="text-danger">{{ $errors->first('expied_at') }}</span>
+                <label for="expired_at">{{ trans('cruds.qrCode.fields.expired_at') }}</label>
+                <input class="form-control datetime {{ $errors->has('expired_at') ? 'is-invalid' : '' }}" type="text" name="expired_at" id="expired_at" value="{{ old('expired_at', $qrCode->expired_at) }}">
+                @if($errors->has('expired_at'))
+                    <span class="text-danger">{{ $errors->first('expired_at') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.qrCode.fields.expied_at_helper') }}</span>
             </div>

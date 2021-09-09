@@ -33,6 +33,22 @@
                     </tr>
                     <tr>
                         <th>
+                            Postcode
+                        </th>
+                        <td>
+                            {{ $address->state->postcode ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Area
+                        </th>
+                        <td>
+                            {{ $address->state->area ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.address.fields.state') }}
                         </th>
                         <td>

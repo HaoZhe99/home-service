@@ -41,10 +41,10 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.qrCode.fields.expied_at') }}
+                            {{ trans('cruds.qrCode.fields.expired_at') }}
                         </th>
                         <td>
-                            {{ $qrCode->expied_at }}
+                            {{ $qrCode->expired_at }}
                         </td>
                     </tr>
                 </tbody>

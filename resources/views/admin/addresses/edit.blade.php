@@ -19,7 +19,7 @@
                 <span class="help-block">{{ trans('cruds.address.fields.address_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="state_id">{{ trans('cruds.address.fields.state') }}</label>
+                <label for="state_id">Postcode</label>
                 <select class="form-control select2 {{ $errors->has('state') ? 'is-invalid' : '' }}" name="state_id" id="state_id">
                     @foreach($states as $id => $entry)
                         <option value="{{ $id }}" {{ (old('state_id') ? old('state_id') : $address->state->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>

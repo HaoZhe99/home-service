@@ -23,6 +23,7 @@ class State extends Model
     protected $fillable = [
         'state',
         'postcode',
+        'area',
         'country_id',
         'created_at',
         'updated_at',

@@ -25,6 +25,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.merchant.fields.name') }}
+                        </th>
+                        <td>
+                            {{ $merchant->name }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.merchant.fields.description') }}
                         </th>
                         <td>

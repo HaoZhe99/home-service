@@ -32,7 +32,7 @@ class MerchantController extends Controller
     {
         abort_if(Gate::denies('merchant_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $states = State::pluck('state', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $states = State::pluck('postcode', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $categories = Category::pluck('name', 'id');
 
@@ -41,7 +41,16 @@ class MerchantController extends Controller
 
     public function store(StoreMerchantRequest $request)
     {
-        $merchant = Merchant::create($request->all());
+        $merchant = Merchant::create([
+            'description' => $request->description,
+            'contact_number' => $request->contact_number,
+            'status' => $request->status,
+            'address' => $request->address1 . "," . $request->address2 . "," . $request->address3,
+            'state_id' => $request->state_id,
+            'longitude' => $request->longitude,
+            'latitude' => $request->latitude,
+            'ssm_number' => $request->ssm_number,
+        ]);
         $merchant->categories()->sync($request->input('categories', []));
         if ($request->input('ssm_document', false)) {
             $merchant->addMedia(storage_path('tmp/uploads/' . basename($request->input('ssm_document'))))->toMediaCollection('ssm_document');

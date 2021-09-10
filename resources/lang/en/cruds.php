@@ -149,6 +149,8 @@ return [
             'updated_at_helper'     => ' ',
             'deleted_at'            => 'Deleted at',
             'deleted_at_helper'     => ' ',
+            'postcode'                 => 'Postcode',
+            'postcode_helper'          => ' ',
             'state'                 => 'State',
             'state_helper'          => ' ',
             'category'              => 'Category',

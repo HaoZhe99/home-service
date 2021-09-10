@@ -49,7 +49,7 @@
                         <th>
                             {{ trans('cruds.merchant.fields.latitude') }}
                         </th>
-                        <th>
+                        {{-- <th>
                             {{ trans('cruds.merchant.fields.ssm_number') }}
                         </th>
                         <th>
@@ -57,7 +57,7 @@
                         </th>
                         <th>
                             {{ trans('cruds.merchant.fields.logo') }}
-                        </th>
+                        </th> --}}
                         <th>
                             {{ trans('cruds.merchant.fields.category') }}
                         </th>
@@ -74,6 +74,9 @@
                             </td>
                             <td>
                                 {{ $merchant->id ?? '' }}
+                            </td>
+                            <td>
+                                {{ $merchant->name ?? '' }}
                             </td>
                             <td>
                                 {{ $merchant->description ?? '' }}
@@ -96,7 +99,7 @@
                             <td>
                                 {{ $merchant->latitude ?? '' }}
                             </td>
-                            <td>
+                            {{-- <td>
                                 {{ $merchant->ssm_number ?? '' }}
                             </td>
                             <td>
@@ -105,14 +108,14 @@
                                         {{ trans('global.view_file') }}
                                     </a>
                                 @endif
-                            </td>
-                            <td>
+                            </td> --}}
+                            {{-- <td>
                                 @if($merchant->logo)
                                     <a href="{{ $merchant->logo->getUrl() }}" target="_blank">
                                         {{ trans('global.view_file') }}
                                     </a>
                                 @endif
-                            </td>
+                            </td> --}}
                             <td>
                                 @foreach($merchant->categories as $key => $item)
                                     <span class="badge badge-info">{{ $item->name }}</span>

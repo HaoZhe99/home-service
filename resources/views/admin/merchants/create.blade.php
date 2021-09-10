@@ -56,14 +56,18 @@
                     <div class="form-group">
                         <label for="address">{{ trans('cruds.merchant.fields.address') }}</label>
                         <input class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}" type="text"
-                            name="address" id="address" value="{{ old('address', '') }}">
+                            name="address1" id="address" value="{{ old('address', '') }}" style="margin-bottom: 10px">
+                        <input class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}" type="text"
+                            name="address2" id="address" value="{{ old('address', '') }}" style="margin-bottom: 10px">
+                        <input class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}" type="text"
+                            name="address3" id="address" value="{{ old('address', '') }}">
                         @if ($errors->has('address'))
                             <span class="text-danger">{{ $errors->first('address') }}</span>
                         @endif
                         <span class="help-block">{{ trans('cruds.merchant.fields.address_helper') }}</span>
                     </div>
                     <div class="form-group">
-                        <label for="state_id">{{ trans('cruds.merchant.fields.state') }}</label>
+                        <label for="state_id">{{ trans('cruds.merchant.fields.postcode') }}</label>
                         <select class="form-control select2 {{ $errors->has('state') ? 'is-invalid' : '' }}"
                             name="state_id" id="state_id">
                             @foreach ($states as $id => $entry)

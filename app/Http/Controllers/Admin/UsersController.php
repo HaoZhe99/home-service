@@ -13,6 +13,8 @@ use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use Illuminate\Support\Facades\Hash;
+
 class UsersController extends Controller
 {
     public function index()
@@ -89,5 +91,17 @@ class UsersController extends Controller
         User::whereIn('id', request('ids'))->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function merchant_register(Request $request)
+    {
+        $user = User::create([
+            'name'   => $request->name,
+            'email'    =>  $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+        $user->roles()->sync(2);
+
+        return redirect('/login')->with('status', 'Register Successully!');
     }
 }

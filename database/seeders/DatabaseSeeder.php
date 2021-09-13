@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             PaymentMethodTableSeeder::class,
             StateTableSeeder::class,
             CategoryTableSeeder::class,
+            AddressTableSeeder::class,
         ]);
     }
 }

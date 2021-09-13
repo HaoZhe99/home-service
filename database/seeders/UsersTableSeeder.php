@@ -16,9 +16,9 @@ class UsersTableSeeder extends Seeder
                 'email'          => 'admin@admin.com',
                 'password'       => bcrypt('password'),
                 'remember_token' => null,
-                'username'       => '',
-                'phone'          => '',
-                'verify_token'   => '',
+                'username'       => 'admin',
+                'phone'          => '+60025788945',
+                'verify'         => 1,
             ],
             [
                 'id'             => 2,
@@ -26,9 +26,9 @@ class UsersTableSeeder extends Seeder
                 'email'          => 'user@user.com',
                 'password'       => bcrypt('password'),
                 'remember_token' => null,
-                'username'       => '',
-                'phone'          => '',
-                'verify_token'   => '',
+                'username'       => 'user',
+                'phone'          => '+604724242',
+                'verify'         => 1,
             ],
         ];
 

@@ -64,9 +64,9 @@
                     <tbody>
                         @foreach ($orders as $key => $order)
                             <tr data-entry-id="{{ $order->id }}">
-                                <td>
+                                {{-- <td>
 
-                                </td>
+                                </td> --}}
                                 <td>
                                     {{ $order->id ?? '' }}
                                 </td>
@@ -86,7 +86,7 @@
                                     {{ $order->remark ?? '' }}
                                 </td> --}}
                                 <td>
-                                    {{ $order->merchant->description ?? '' }}
+                                    {{ $order->merchant->name ?? '' }}
                                 </td>
                                 <td>
                                     {{ $order->package->name ?? '' }}

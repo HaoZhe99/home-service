@@ -31,7 +31,7 @@ class OrderController extends Controller
     {
         abort_if(Gate::denies('order_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $merchants = Merchant::pluck('description', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $merchants = Merchant::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $packages = Package::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
@@ -55,7 +55,7 @@ class OrderController extends Controller
     {
         abort_if(Gate::denies('order_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $merchants = Merchant::pluck('description', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $merchants = Merchant::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $packages = Package::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 

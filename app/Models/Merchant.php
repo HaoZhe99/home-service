@@ -36,6 +36,7 @@ class Merchant extends Model implements HasMedia
     ];
 
     protected $fillable = [
+        'name',
         'description',
         'contact_number',
         'status',

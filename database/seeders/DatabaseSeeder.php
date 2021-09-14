@@ -19,6 +19,11 @@ class DatabaseSeeder extends Seeder
             StateTableSeeder::class,
             CategoryTableSeeder::class,
             AddressTableSeeder::class,
+            MerchantTableSeeder::class,
+            PackageTableSeeder::class,
+            QRCodeTableSeeder::class,
+            ServicerTableSeeder::class,
+            OrderTableSeeder::class,
         ]);
     }
 }

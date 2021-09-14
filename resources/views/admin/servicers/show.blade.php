@@ -44,7 +44,7 @@
                             {{ trans('cruds.servicer.fields.merchant') }}
                         </th>
                         <td>
-                            {{ $servicer->merchant->description ?? '' }}
+                            {{ $servicer->merchant->name ?? '' }}
                         </td>
                     </tr>
                 </tbody>

@@ -56,7 +56,7 @@
                                     {{ $servicer->user->name ?? '' }}
                                 </td>
                                 <td>
-                                    {{ $servicer->merchant->description ?? '' }}
+                                    {{ $servicer->merchant->name ?? '' }}
                                 </td>
                                 <td>
                                     @can('servicer_show')

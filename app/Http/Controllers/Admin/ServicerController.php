@@ -30,7 +30,7 @@ class ServicerController extends Controller
 
         $users = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $merchants = Merchant::pluck('description', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $merchants = Merchant::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         return view('admin.servicers.create', compact('users', 'merchants'));
     }
@@ -48,7 +48,7 @@ class ServicerController extends Controller
 
         $users = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $merchants = Merchant::pluck('description', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $merchants = Merchant::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $servicer->load('user', 'merchant');
 

@@ -68,7 +68,7 @@
                             {{ trans('cruds.order.fields.merchant') }}
                         </th>
                         <td>
-                            {{ $order->merchant->description ?? '' }}
+                            {{ $order->merchant->name ?? '' }}
                         </td>
                     </tr>
                     <tr>

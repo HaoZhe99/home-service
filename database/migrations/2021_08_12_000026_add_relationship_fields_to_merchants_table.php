@@ -11,6 +11,8 @@ class AddRelationshipFieldsToMerchantsTable extends Migration
         Schema::table('merchants', function (Blueprint $table) {
             $table->unsignedBigInteger('state_id')->nullable();
             $table->foreign('state_id', 'state_fk_4592726')->references('id')->on('states');
+            $table->unsignedBigInteger('created_by_id')->nullable();
+            $table->foreign('created_by_id', 'created_by_fk_4592727')->references('id')->on('users');
         });
     }
 }

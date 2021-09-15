@@ -23,6 +23,7 @@ class Address extends Model
     protected $fillable = [
         'address',
         'state_id',
+        'created_by_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -31,6 +32,10 @@ class Address extends Model
     public function state()
     {
         return $this->belongsTo(State::class, 'state_id');
+    }
+    public function created_by()
+    {
+        return $this->belongsTo(User::class, 'created_by_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

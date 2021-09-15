@@ -36,7 +36,7 @@
                         @endif
                         <span class="help-block">{{ trans('cruds.merchant.fields.contact_number_helper') }}</span>
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label>{{ trans('cruds.merchant.fields.status') }}</label>
                         <select class="form-control {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status"
                             id="status">
@@ -52,7 +52,7 @@
                             <span class="text-danger">{{ $errors->first('status') }}</span>
                         @endif
                         <span class="help-block">{{ trans('cruds.merchant.fields.status_helper') }}</span>
-                    </div>
+                    </div> --}}
                     <div class="form-group">
                         <label for="address">{{ trans('cruds.merchant.fields.address') }}</label>
                         <input class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}" type="text"

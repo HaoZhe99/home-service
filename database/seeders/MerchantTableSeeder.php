@@ -21,6 +21,7 @@ class MerchantTableSeeder extends Seeder
                 'longitude'        => '1.563032',
                 'latitude'         => '103.60145468',
                 'ssm_number'       => '11232313-T',
+                'created_by_id'    => 2,
             ],
             [
                 'id'               => 2,
@@ -33,6 +34,7 @@ class MerchantTableSeeder extends Seeder
                 'longitude'        => '1.5630422',
                 'latitude'         => '103.64015468',
                 'ssm_number'       => '435465-T',
+                'created_by_id'    => 3,
             ],
         ];
 

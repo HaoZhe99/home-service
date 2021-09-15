@@ -129,6 +129,14 @@
                             @endforeach
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            Created By 
+                        </th>
+                        <td>
+                            {{ $merchant->created_by->name }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

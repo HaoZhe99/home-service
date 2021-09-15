@@ -10,6 +10,7 @@ use App\Models\Address;
 use App\Models\State;
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class AddressController extends Controller
@@ -17,8 +18,12 @@ class AddressController extends Controller
     public function index()
     {
         abort_if(Gate::denies('address_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        if (Auth::id() == 1) {
+            $addresses = Address::with(['state'])->get();
+        } else {
+            $addresses = Address::where('created_by_id', Auth::id())->with(['state'])->get();
+        }
 
-        $addresses = Address::with(['state'])->get();
 
         return view('admin.addresses.index', compact('addresses'));
     }
@@ -34,7 +39,11 @@ class AddressController extends Controller
 
     public function store(StoreAddressRequest $request)
     {
-        $address = Address::create($request->all());
+        $address = Address::create([
+            'address' => $request->address,
+            'state_id' => $request->state_id,
+            'created_by_id' => Auth::id(),
+        ]);
 
         return redirect()->route('admin.addresses.index');
     }

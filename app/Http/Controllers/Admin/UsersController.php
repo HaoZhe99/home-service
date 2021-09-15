@@ -11,6 +11,7 @@ use App\Models\Role;
 use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 use Illuminate\Support\Facades\Hash;
@@ -21,7 +22,12 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $users = User::with(['roles', 'addresses'])->get();
+        if (Auth::id() == 1) {
+            $users = User::with(['roles', 'addresses'])->get();
+        } else {
+            $users = User::where('id', Auth::id())->with(['roles', 'addresses'])->get();
+        }
+
 
         return view('admin.users.index', compact('users'));
     }
@@ -59,7 +65,7 @@ class UsersController extends Controller
         return view('admin.users.edit', compact('roles', 'addresses', 'user'));
     }
 
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(Request $request, User $user)
     {
         $user->update($request->all());
         $user->roles()->sync($request->input('roles', []));

@@ -45,6 +45,7 @@ class Merchant extends Model implements HasMedia
         'longitude',
         'latitude',
         'ssm_number',
+        'created_by_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -59,6 +60,11 @@ class Merchant extends Model implements HasMedia
     public function state()
     {
         return $this->belongsTo(State::class, 'state_id');
+    }
+
+    public function created_by()
+    {
+        return $this->belongsTo(User::class, 'created_by_id');
     }
 
     public function getSsmDocumentAttribute()

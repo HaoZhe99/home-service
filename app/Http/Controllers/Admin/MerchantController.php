@@ -12,6 +12,7 @@ use App\Models\Merchant;
 use App\Models\State;
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -22,8 +23,13 @@ class MerchantController extends Controller
     public function index()
     {
         abort_if(Gate::denies('merchant_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        // dd(Auth::id() == 1);
+        if (Auth::id() == 1) {
+            $merchants = Merchant::with(['state', 'categories', 'media'])->get();
+        } else{
+            $merchants = Merchant::where('created_by_id', Auth::id())->with(['state', 'categories', 'media'])->get();
+        }
 
-        $merchants = Merchant::with(['state', 'categories', 'media'])->get();
 
         return view('admin.merchants.index', compact('merchants'));
     }
@@ -44,12 +50,13 @@ class MerchantController extends Controller
         $merchant = Merchant::create([
             'description' => $request->description,
             'contact_number' => $request->contact_number,
-            'status' => $request->status,
+            'status' => 'pending',
             'address' => $request->address1 . "," . $request->address2 . "," . $request->address3,
             'state_id' => $request->state_id,
             'longitude' => $request->longitude,
             'latitude' => $request->latitude,
             'ssm_number' => $request->ssm_number,
+            'created_by_id' => Auth::id(),
         ]);
         $merchant->categories()->sync($request->input('categories', []));
         if ($request->input('ssm_document', false)) {

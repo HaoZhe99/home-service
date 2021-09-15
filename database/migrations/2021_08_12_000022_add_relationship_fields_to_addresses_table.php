@@ -11,6 +11,8 @@ class AddRelationshipFieldsToAddressesTable extends Migration
         Schema::table('addresses', function (Blueprint $table) {
             $table->unsignedBigInteger('state_id')->nullable();
             $table->foreign('state_id', 'state_fk_4592743')->references('id')->on('states');
+            $table->unsignedBigInteger('created_by_id')->nullable();
+            $table->foreign('created_by_id', 'created_by_fk_4592744')->references('id')->on('users');
         });
     }
 }

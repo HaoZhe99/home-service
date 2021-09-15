@@ -14,6 +14,7 @@ use App\Models\Servicer;
 use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class OrderController extends Controller
@@ -22,7 +23,13 @@ class OrderController extends Controller
     {
         abort_if(Gate::denies('order_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $orders = Order::with(['merchant', 'package', 'user', 'servicer', 'qr_code'])->get();
+        if (Auth::id() == 1) {
+            $orders = Order::with(['merchant', 'package', 'user', 'servicer', 'qr_code'])->get();
+        } else {
+            $orders = Order::where('merchant_id', (Merchant::where('created_by_id', (User::where('id', Auth::id())->first())->id)->first())->id)
+                ->with(['merchant', 'package', 'user', 'servicer', 'qr_code'])->get();
+        }
+
 
         return view('admin.orders.index', compact('orders'));
     }

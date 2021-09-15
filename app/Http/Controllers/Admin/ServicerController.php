@@ -11,6 +11,7 @@ use App\Models\Servicer;
 use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class ServicerController extends Controller
@@ -18,8 +19,12 @@ class ServicerController extends Controller
     public function index()
     {
         abort_if(Gate::denies('servicer_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $servicers = Servicer::with(['user', 'merchant'])->get();
+        if (Auth::id() == 1) {
+            $servicers = Servicer::with(['user', 'merchant'])->get();
+        } else {
+            $servicers = Servicer::where('merchant_id', (Merchant::where('created_by_id', (User::where('id', Auth::id())->first())->id)->first())->id)
+                ->with(['user', 'merchant'])->get();
+        }
 
         return view('admin.servicers.index', compact('servicers'));
     }

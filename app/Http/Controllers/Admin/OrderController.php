@@ -101,4 +101,24 @@ class OrderController extends Controller
 
         return response(null, Response::HTTP_NO_CONTENT);
     }
+
+    public function complete(Order $order)
+    {
+
+        $order->update([
+            'status' => 'completed'
+        ]);
+
+        return redirect()->route('admin.orders.index');
+    }
+
+    public function incomplete(Order $order)
+    {
+
+        $order->update([
+            'status' => 'incomplete'
+        ]);
+
+        return redirect()->route('admin.orders.index');
+    }
 }

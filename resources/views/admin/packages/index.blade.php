@@ -64,12 +64,12 @@
                                 <td>
                                     {{ App\Models\Package::STATUS_SELECT[$package->status] ?? '' }}
                                 </td>
-                                <td>
-                                    {{ $package->description ?? '' }}
-                                </td>
                                 {{-- <td>
-                                {{ $package->merchant->description ?? '' }}
-                            </td> --}}
+                                    {{ $package->description ?? '' }}
+                                </td> --}}
+                                <td>
+                                    {{ $package->merchant->name ?? '' }}
+                                </td>
                                 <td>
                                     @can('package_show')
                                         <a class="btn btn-xs btn-primary"

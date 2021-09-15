@@ -12,8 +12,8 @@ class OrderTableSeeder extends Seeder
         $order = [
             [
                 'id'            => 1,
-                'price'         => '15.99',
-                'status'        => 'approved',
+                'price'         => '39',
+                'status'        => 'incomplete',
                 'comment'       => 'Good Taste',
                 'rate'          => '5',
                 'remark'        => '',
@@ -25,8 +25,8 @@ class OrderTableSeeder extends Seeder
             ],
             [
                 'id'            => 2,
-                'price'         => '17.26',
-                'status'        => 'approved',
+                'price'         => '59',
+                'status'        => 'incomplete',
                 'comment'       => 'Good Taste',
                 'rate'          => '5',
                 'remark'        => '',

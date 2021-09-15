@@ -21,9 +21,8 @@ class Order extends Model
     ];
 
     public const STATUS_SELECT = [
-        'pending'  => 'Pending',
-        'reject'   => 'Reject',
-        'approved' => 'Approved',
+        'completed'   => 'Completed',
+        'incomplete' => 'Incomplete',
     ];
 
     public $table = 'orders';

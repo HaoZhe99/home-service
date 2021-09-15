@@ -113,6 +113,18 @@
                                         </a>
                                     @endcan
 
+                                    @can('order_edit')
+                                        <a class="btn btn-xs btn-success" href="{{ route('admin.orders.complete', $order->id) }}">
+                                            Completed
+                                        </a>
+                                    @endcan
+
+                                    @can('order_edit')
+                                        <a class="btn btn-xs btn-warning" href="{{ route('admin.orders.incomplete', $order->id) }}">
+                                            Incomplete
+                                        </a>
+                                    @endcan
+
                                     @can('order_delete')
                                         <form action="{{ route('admin.orders.destroy', $order->id) }}" method="POST"
                                             onsubmit="return confirm('{{ trans('global.areYouSure') }}');"

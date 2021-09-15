@@ -145,4 +145,26 @@ class MerchantController extends Controller
 
         return response()->json(['id' => $media->id, 'url' => $media->getUrl()], Response::HTTP_CREATED);
     }
+
+    public function approve(Merchant $merchant)
+    {
+        abort_if(Gate::denies('merchant_approve'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $merchant->update([
+            'status' => 'approved'
+        ]);
+
+        return redirect()->route('admin.merchants.index');
+    }
+
+    public function reject(Merchant $merchant)
+    {
+        abort_if(Gate::denies('merchant_reject'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $merchant->update([
+            'status' => 'reject'
+        ]);
+
+        return redirect()->route('admin.merchants.index');
+    }
 }

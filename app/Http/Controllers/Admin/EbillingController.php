@@ -126,4 +126,21 @@ class EbillingController extends Controller
 
         return response()->json(['id' => $media->id, 'url' => $media->getUrl()], Response::HTTP_CREATED);
     }
+    public function approve(Ebilling $ebilling)
+    {
+        $ebilling->update([
+            'status' => 'approved'
+        ]);
+
+        return redirect()->route('admin.ebillings.index');
+    }
+
+    public function reject(Ebilling $ebilling)
+    {
+        $ebilling->update([
+            'status' => 'reject'
+        ]);
+
+        return redirect()->route('admin.ebillings.index');
+    }
 }

@@ -37,6 +37,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('packages', 'PackageController');
 
     // Merchant
+    Route::get('merchants/approve/{merchant}', 'MerchantController@approve')->name('merchants.approve');
+    Route::get('merchants/reject/{merchant}', 'MerchantController@reject')->name('merchants.reject');
     Route::delete('merchants/destroy', 'MerchantController@massDestroy')->name('merchants.massDestroy');
     Route::post('merchants/media', 'MerchantController@storeMedia')->name('merchants.storeMedia');
     Route::post('merchants/ckmedia', 'MerchantController@storeCKEditorImages')->name('merchants.storeCKEditorImages');
@@ -59,10 +61,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('servicers', 'ServicerController');
 
     // Order
+    Route::get('orders/complete/{order}', 'OrderController@complete')->name('orders.complete');
+    Route::get('orders/incomplete/{order}', 'OrderController@incomplete')->name('orders.incomplete');
     Route::delete('orders/destroy', 'OrderController@massDestroy')->name('orders.massDestroy');
     Route::resource('orders', 'OrderController');
 
     // Ebilling
+    Route::get('ebillings/approve/{ebilling}', 'EbillingController@approve')->name('ebillings.approve');
+    Route::get('ebillings/reject/{ebilling}', 'EbillingController@reject')->name('ebillings.reject');
     Route::delete('ebillings/destroy', 'EbillingController@massDestroy')->name('ebillings.massDestroy');
     Route::post('ebillings/media', 'EbillingController@storeMedia')->name('ebillings.storeMedia');
     Route::post('ebillings/ckmedia', 'EbillingController@storeCKEditorImages')->name('ebillings.storeCKEditorImages');

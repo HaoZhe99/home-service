@@ -20,10 +20,12 @@ class DatabaseSeeder extends Seeder
             CategoryTableSeeder::class,
             AddressTableSeeder::class,
             MerchantTableSeeder::class,
+            CategoryMerchantTableSeeder::class,
             PackageTableSeeder::class,
             QRCodeTableSeeder::class,
             ServicerTableSeeder::class,
             OrderTableSeeder::class,
+            EbillingTableSeeder::class,
         ]);
     }
 }

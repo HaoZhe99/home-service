@@ -13,6 +13,8 @@ return [
     'clear'                          => 'Clear',
     'downloadFile'                   => 'Download file',
     'edit'                           => 'Edit',
+    'approve'                           => 'Approve',
+    'reject'                           => 'Reject',
     'emailVerificationSuccess'       => 'User email verified successfully',
     'entries'                        => 'Entries',
     'filterDate'                     => 'Filter by date',

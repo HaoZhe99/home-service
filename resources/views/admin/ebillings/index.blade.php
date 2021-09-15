@@ -101,6 +101,20 @@
                                         </a>
                                     @endcan
 
+                                    @can('ebilling_edit')
+                                        <a class="btn btn-xs btn-success"
+                                            href="{{ route('admin.ebillings.approve', $ebilling->id) }}">
+                                            {{ trans('global.approve') }}
+                                        </a>
+                                    @endcan
+
+                                    @can('ebilling_edit')
+                                        <a class="btn btn-xs btn-warning"
+                                            href="{{ route('admin.ebillings.reject', $ebilling->id) }}">
+                                            {{ trans('global.reject') }}
+                                        </a>
+                                    @endcan
+
                                     @can('ebilling_delete')
                                         <form action="{{ route('admin.ebillings.destroy', $ebilling->id) }}" method="POST"
                                             onsubmit="return confirm('{{ trans('global.areYouSure') }}');"

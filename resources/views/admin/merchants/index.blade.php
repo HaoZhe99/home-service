@@ -29,7 +29,7 @@
                             <th>
                                 {{ trans('cruds.merchant.fields.name') }}
                             </th>
-                            <th>
+                            <th width="20%">
                                 {{ trans('cruds.merchant.fields.description') }}
                             </th>
                             <th>
@@ -134,6 +134,20 @@
                                         <a class="btn btn-xs btn-info"
                                             href="{{ route('admin.merchants.edit', $merchant->id) }}">
                                             {{ trans('global.edit') }}
+                                        </a>
+                                    @endcan
+
+                                    @can('merchant_approve')
+                                        <a class="btn btn-xs btn-success"
+                                            href="{{ route('admin.merchants.approve', $merchant->id) }}">
+                                            {{ trans('global.approve') }}
+                                        </a>
+                                    @endcan
+
+                                    @can('merchant_reject')
+                                        <a class="btn btn-xs btn-warning"
+                                            href="{{ route('admin.merchants.reject', $merchant->id) }}">
+                                            {{ trans('global.reject') }}
                                         </a>
                                     @endcan
 

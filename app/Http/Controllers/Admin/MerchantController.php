@@ -48,13 +48,14 @@ class MerchantController extends Controller
     public function store(StoreMerchantRequest $request)
     {
         $merchant = Merchant::create([
+            'name'  => $request->name,
             'description' => $request->description,
             'contact_number' => $request->contact_number,
             'status' => 'pending',
             'address' => $request->address1 . "," . $request->address2 . "," . $request->address3,
             'state_id' => $request->state_id,
-            'longitude' => $request->longitude,
-            'latitude' => $request->latitude,
+            // 'longitude' => $request->longitude,
+            // 'latitude' => $request->latitude,
             'ssm_number' => $request->ssm_number,
             'created_by_id' => Auth::id(),
         ]);

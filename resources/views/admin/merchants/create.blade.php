@@ -80,7 +80,7 @@
                         @endif
                         <span class="help-block">{{ trans('cruds.merchant.fields.state_helper') }}</span>
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="longitude">{{ trans('cruds.merchant.fields.longitude') }}</label>
                         <input class="form-control {{ $errors->has('longitude') ? 'is-invalid' : '' }}" type="text"
                             name="longitude" id="longitude" value="{{ old('longitude', '') }}">
@@ -97,7 +97,7 @@
                             <span class="text-danger">{{ $errors->first('latitude') }}</span>
                         @endif
                         <span class="help-block">{{ trans('cruds.merchant.fields.latitude_helper') }}</span>
-                    </div>
+                    </div> --}}
                     <div class="form-group">
                         <label for="ssm_number">{{ trans('cruds.merchant.fields.ssm_number') }}</label>
                         <input class="form-control {{ $errors->has('ssm_number') ? 'is-invalid' : '' }}" type="text"

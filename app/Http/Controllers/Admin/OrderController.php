@@ -38,13 +38,26 @@ class OrderController extends Controller
     {
         abort_if(Gate::denies('order_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $merchants = Merchant::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        if (Auth::id() == 1) {
+            $merchants = Merchant::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        } else {
+            $merchants = Merchant::where('created_by_id', Auth::id())->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        }
 
-        $packages = Package::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        if (Auth::id() == 1) {
+            $packages = Package::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        } else {
+            $packages = Package::whereIn('merchant_id', Merchant::select('id')->where('created_by_id', Auth::id()))->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        }
 
         $users = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $servicers = Servicer::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        if (Auth::id() == 1) {
+            $servicers = Servicer::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        } else {
+            $servicers = Servicer::where('merchant_id', (Merchant::where('created_by_id', (User::where('id', Auth::id())->first())->id)->first())->id)
+                ->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        }
 
         $qr_codes = QrCode::pluck('code', 'id')->prepend(trans('global.pleaseSelect'), '');
 
@@ -68,7 +81,12 @@ class OrderController extends Controller
 
         $users = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $servicers = Servicer::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        if (Auth::id() == 1) {
+            $servicers = Servicer::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        } else {
+            $servicers = Servicer::where('merchant_id', (Merchant::where('created_by_id', (User::where('id', Auth::id())->first())->id)->first())->id)
+                ->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        }
 
         $qr_codes = QrCode::pluck('code', 'id')->prepend(trans('global.pleaseSelect'), '');
 

@@ -23,7 +23,7 @@ class PackageController extends Controller
         if (Auth::id() == 1) {
             $packages = Package::with(['merchant'])->get();
         } else {
-            $packages = Package::where('merchant_id', (Merchant::where('created_by_id', (User::where('id', Auth::id())->first())->id)->first())->id)
+            $packages = Package::whereIn('merchant_id', Merchant::select('id')->whereIn('created_by_id', User::select('id')->where('id', Auth::id())))
                 ->with(['merchant'])->get();
         }
 
@@ -35,7 +35,12 @@ class PackageController extends Controller
     {
         abort_if(Gate::denies('package_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $merchants = Merchant::pluck('description', 'id')->prepend(trans('global.pleaseSelect'), '');
+        if (Auth::id() == 1) {
+            $merchants = Merchant::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        } else {
+            $merchants = Merchant::where('created_by_id', Auth::id())->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        }
+
 
         return view('admin.packages.create', compact('merchants'));
     }

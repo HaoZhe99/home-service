@@ -18,8 +18,6 @@ class MerchantApiController extends Controller
 
     public function index()
     {
-        abort_if(Gate::denies('merchant_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         return new MerchantResource(Merchant::with(['state', 'categories'])->get());
     }
 
@@ -42,8 +40,6 @@ class MerchantApiController extends Controller
 
     public function show(Merchant $merchant)
     {
-        abort_if(Gate::denies('merchant_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         return new MerchantResource($merchant->load(['state', 'categories']));
     }
 

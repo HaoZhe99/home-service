@@ -38,7 +38,7 @@ class PackageController extends Controller
         if (Auth::id() == 1) {
             $merchants = Merchant::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
         } else {
-            $merchants = Merchant::where('created_by_id', Auth::id())->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+            $merchants = Merchant::where('created_by_id', Auth::id())->where('status','approved')->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
         }
 
 

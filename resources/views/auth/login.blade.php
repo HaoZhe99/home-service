@@ -66,7 +66,7 @@
                         <div class="col-6">
                             <a href="{{ route('register') }}" class="btn btn-info btn-block btn-flat" type="button"
                                 style="text-decoration: none;color:white">
-                                Register
+                                Merchant Register
                             </a>
                         </div>
                         <!-- /.col -->
@@ -81,7 +81,7 @@
 
 
                 @if (Route::has('password.request'))
-                    <p class="mb-1">
+                    <p class="mb-1" style="padding-top: 10px">
                         <a href="{{ route('password.request') }}">
                             {{ trans('global.forgot_password') }}
                         </a>

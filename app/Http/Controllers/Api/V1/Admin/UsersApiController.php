@@ -15,8 +15,6 @@ class UsersApiController extends Controller
 {
     public function index()
     {
-        abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         return new UserResource(User::with(['roles', 'addresses'])->get());
     }
 
@@ -61,6 +59,7 @@ class UsersApiController extends Controller
     public function register(Request $request)
     {
         $user = User::create([
+            'name' => $request->username,
             'username' => $request->username,
             'email' => $request->email,
             'password' => $request->password,
@@ -70,5 +69,12 @@ class UsersApiController extends Controller
         return (new UserResource($user))
             ->response()
             ->setStatusCode(Response::HTTP_CREATED);
+    }
+
+    public function login($input)
+    {
+        $user = User::with(['roles'])->where('email', $input)->orWhere('name', $input)->first();
+
+        return new UserResource($user);
     }
 }

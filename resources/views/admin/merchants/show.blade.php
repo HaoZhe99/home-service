@@ -102,7 +102,7 @@
                         <td>
                             @if($merchant->ssm_document)
                                 <a href="{{ $merchant->ssm_document->getUrl() }}" target="_blank">
-                                    {{ trans('global.view_file') }}
+                                    <img src="public/storage/3/61987da79b84f_abc.png">
                                 </a>
                             @endif
                         </td>

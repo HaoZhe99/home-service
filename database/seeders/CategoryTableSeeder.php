@@ -20,22 +20,18 @@ class CategoryTableSeeder extends Seeder
             ],
             [
                 'id' => 3,
-                'name' => 'Pest control',
+                'name' => 'Plumbing Repair',
             ],
             [
                 'id' => 4,
-                'name' => 'Mover & Relocators',
+                'name' => 'Aircon Repair',
             ],
             [
                 'id' => 5,
-                'name' => 'Computer service',
+                'name' => 'Electrical',
             ],
             [
                 'id' => 6,
-                'name' => 'Interior design ',
-            ],
-            [
-                'id' => 7,
                 'name' => 'Light & wiring',
             ],
         ];

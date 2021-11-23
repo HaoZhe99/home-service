@@ -13,6 +13,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin'], 
     Route::apiResource('packages', 'PackageApiController');
 
     // Merchant
+    Route::get('merchants/randomShow', 'MerchantApiController@randomShow');
     Route::post('merchants/media', 'MerchantApiController@storeMedia')->name('merchants.storeMedia');
     Route::apiResource('merchants', 'MerchantApiController');
 

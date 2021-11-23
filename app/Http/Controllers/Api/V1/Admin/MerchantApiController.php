@@ -43,6 +43,11 @@ class MerchantApiController extends Controller
         return new MerchantResource($merchant->load(['state', 'categories']));
     }
 
+    public function randomShow()
+    {
+        return new MerchantResource(Merchant::inRandomOrder()->first());
+    }
+
     public function update(UpdateMerchantRequest $request, Merchant $merchant)
     {
         $merchant->update($request->all());

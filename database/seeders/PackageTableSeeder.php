@@ -32,7 +32,7 @@ class PackageTableSeeder extends Seeder
                 'price'         => '99',
                 'status'        => 'active',
                 'description'   => 'Surface Cleaning, Deep Cleaning, Repair',
-                'merchant_id'   => 2,
+                'merchant_id'   => 7,
             ],
             [
                 'id'            => 4,
@@ -40,7 +40,7 @@ class PackageTableSeeder extends Seeder
                 'price'         => '59',
                 'status'        => 'active',
                 'description'   => 'Aircon Install, Wayar Install, Aircon Motor Install',
-                'merchant_id'   => 2,
+                'merchant_id'   => 7,
             ],
         ];
 

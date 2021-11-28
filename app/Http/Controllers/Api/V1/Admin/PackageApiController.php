@@ -15,8 +15,6 @@ class PackageApiController extends Controller
 {
     public function index()
     {
-        abort_if(Gate::denies('package_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         return new PackageResource(Package::with(['merchant'])->get());
     }
 
@@ -31,8 +29,6 @@ class PackageApiController extends Controller
 
     public function show(Package $package)
     {
-        abort_if(Gate::denies('package_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         return new PackageResource($package->load(['merchant']));
     }
 

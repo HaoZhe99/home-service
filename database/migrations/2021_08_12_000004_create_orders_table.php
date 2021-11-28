@@ -12,6 +12,8 @@ class CreateOrdersTable extends Migration
             $table->bigIncrements('id');
             $table->decimal('price', 15, 2)->nullable();
             $table->string('status')->nullable();
+            $table->string('date')->nullable();
+            $table->string('time')->nullable();
             $table->string('comment')->nullable();
             $table->string('rate')->nullable();
             $table->string('remark')->nullable();

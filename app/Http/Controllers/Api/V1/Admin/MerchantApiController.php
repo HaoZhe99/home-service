@@ -7,9 +7,11 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\StoreMerchantRequest;
 use App\Http\Requests\UpdateMerchantRequest;
 use App\Http\Resources\Admin\MerchantResource;
+use App\Models\Category;
 use App\Models\Merchant;
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 class MerchantApiController extends Controller
@@ -46,6 +48,23 @@ class MerchantApiController extends Controller
     public function randomShow()
     {
         return new MerchantResource(Merchant::inRandomOrder()->first());
+    }
+
+    public function merchantWithCategory($id)
+    {
+        $categories = Category::where('id', $id)->first();
+
+        $m_cs = DB::table('category_merchant')->where('category_id', $id)->get();
+
+        $m = array();
+
+        foreach ($m_cs as $m_c) {
+            array_push($m, $m_c->merchant_id);
+        }
+
+        $merchant = Merchant::with(['state', 'categories'])->whereIn('id',$m)->get();
+
+        return new MerchantResource($merchant);
     }
 
     public function update(UpdateMerchantRequest $request, Merchant $merchant)

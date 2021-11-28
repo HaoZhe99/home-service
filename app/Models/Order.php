@@ -37,6 +37,8 @@ class Order extends Model
         'price',
         'status',
         'comment',
+        'date',
+        'time',
         'rate',
         'remark',
         'merchant_id',

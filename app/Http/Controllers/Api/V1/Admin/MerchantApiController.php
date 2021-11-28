@@ -52,8 +52,6 @@ class MerchantApiController extends Controller
 
     public function merchantWithCategory($id)
     {
-        $categories = Category::where('id', $id)->first();
-
         $m_cs = DB::table('category_merchant')->where('category_id', $id)->get();
 
         $m = array();

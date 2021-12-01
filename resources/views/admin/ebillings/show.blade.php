@@ -44,11 +44,11 @@
                             {{ trans('cruds.ebilling.fields.receipt') }}
                         </th>
                         <td>
-                            @if($ebilling->receipt)
-                                <a href="{{ $ebilling->receipt->getUrl() }}" target="_blank">
-                                    {{ trans('global.view_file') }}
+                            {{-- @if($ebilling->receipt) --}}
+                                <a href="{{url('/images/1/abc.png')}}" target="_blank">
+                                    <img src="{{url('images/1/abc.png')}}" width="50" height="100">
                                 </a>
-                            @endif
+                            {{-- @endif --}}
                         </td>
                     </tr>
                     <tr>

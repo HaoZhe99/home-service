@@ -18,6 +18,8 @@ class CreateMerchantsTable extends Migration
             $table->string('longitude')->nullable();
             $table->string('latitude')->nullable();
             $table->string('ssm_number')->nullable();
+            $table->string('ssm_document')->nullable();
+            $table->string('logo')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

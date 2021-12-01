@@ -27,9 +27,9 @@ class MerchantApiController extends Controller
     {
         $merchant = Merchant::create($request->all());
         $merchant->categories()->sync($request->input('categories', []));
-        if ($request->input('ssm_document', false)) {
-            $merchant->addMedia(storage_path('tmp/uploads/' . basename($request->input('ssm_document'))))->toMediaCollection('ssm_document');
-        }
+        // if ($request->input('ssm_document', false)) {
+        //     $merchant->addMedia(storage_path('tmp/uploads/' . basename($request->input('ssm_document'))))->toMediaCollection('ssm_document');
+        // }
 
         if ($request->input('logo', false)) {
             $merchant->addMedia(storage_path('tmp/uploads/' . basename($request->input('logo'))))->toMediaCollection('logo');

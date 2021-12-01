@@ -24,10 +24,9 @@ class Merchant extends Model implements HasMedia
 
     public $table = 'merchants';
 
-    protected $appends = [
-        'ssm_document',
-        'logo',
-    ];
+    // protected $appends = [
+    //     'logo',
+    // ];
 
     protected $dates = [
         'created_at',
@@ -45,6 +44,8 @@ class Merchant extends Model implements HasMedia
         'longitude',
         'latitude',
         'ssm_number',
+        'ssm_document',
+        'logo',
         'created_by_id',
         'created_at',
         'updated_at',
@@ -67,15 +68,15 @@ class Merchant extends Model implements HasMedia
         return $this->belongsTo(User::class, 'created_by_id');
     }
 
-    public function getSsmDocumentAttribute()
-    {
-        return $this->getMedia('ssm_document')->last();
-    }
+    // public function getSsmDocumentAttribute()
+    // {
+    //     return $this->getMedia('ssm_document')->last();
+    // }
 
-    public function getLogoAttribute()
-    {
-        return $this->getMedia('logo')->last();
-    }
+    // public function getLogoAttribute()
+    // {
+    //     return $this->getMedia('logo')->last();
+    // }
 
     public function categories()
     {

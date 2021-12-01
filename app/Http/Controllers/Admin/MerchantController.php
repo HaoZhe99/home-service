@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Str;
 
 class MerchantController extends Controller
 {
@@ -47,6 +48,17 @@ class MerchantController extends Controller
 
     public function store(StoreMerchantRequest $request)
     {
+        // dd($destinationPath = public_path().'/images' );
+        if($request->file('ssm_document')){
+            $ssm_document = $request->file('ssm_document');
+            $ssm_document->move(public_path().'/images/merchant/ssm_document', $img_ssm = 'img_'.Str::random(6).'.jpg');
+        }
+
+        if($request->file('logo')){
+            $logo = $request->file('logo');
+            $logo->move(public_path().'/images/merchant/logo', $img_logo = 'img_'.Str::random(6).'.jpg');
+        }
+
         $merchant = Merchant::create([
             'name'  => $request->name,
             'description' => $request->description,
@@ -57,20 +69,23 @@ class MerchantController extends Controller
             // 'longitude' => $request->longitude,
             // 'latitude' => $request->latitude,
             'ssm_number' => $request->ssm_number,
+            'ssm_document' => ($request->file('ssm_document')) ? $img_ssm : null,
+            'logo' => ($request->file('logo')) ? $img_logo : null,
             'created_by_id' => Auth::id(),
         ]);
         $merchant->categories()->sync($request->input('categories', []));
-        if ($request->input('ssm_document', false)) {
-            $merchant->addMedia(storage_path('tmp/uploads/' . basename($request->input('ssm_document'))))->toMediaCollection('ssm_document');
-        }
 
-        if ($request->input('logo', false)) {
-            $merchant->addMedia(storage_path('tmp/uploads/' . basename($request->input('logo'))))->toMediaCollection('logo');
-        }
+        // if ($request->file('ssm_document', false)) {
+        //     $merchant->addMedia(storage_path('tmp/uploads/' . basename($request->file('ssm_document'))))->toMediaCollection('ssm_document');
+        // }
 
-        if ($media = $request->input('ck-media', false)) {
-            Media::whereIn('id', $media)->update(['model_id' => $merchant->id]);
-        }
+        // if ($request->input('logo', false)) {
+        //     $merchant->addMedia(storage_path('tmp/uploads/' . basename($request->input('logo'))))->toMediaCollection('logo');
+        // }
+
+        // if ($media = $request->input('ck-media', false)) {
+        //     Media::whereIn('id', $media)->update(['model_id' => $merchant->id]);
+        // }
 
         return redirect()->route('admin.merchants.index');
     }
@@ -90,29 +105,53 @@ class MerchantController extends Controller
 
     public function update(UpdateMerchantRequest $request, Merchant $merchant)
     {
-        $merchant->update($request->all());
-        $merchant->categories()->sync($request->input('categories', []));
-        if ($request->input('ssm_document', false)) {
-            if (!$merchant->ssm_document || $request->input('ssm_document') !== $merchant->ssm_document->file_name) {
-                if ($merchant->ssm_document) {
-                    $merchant->ssm_document->delete();
-                }
-                $merchant->addMedia(storage_path('tmp/uploads/' . basename($request->input('ssm_document'))))->toMediaCollection('ssm_document');
-            }
-        } elseif ($merchant->ssm_document) {
-            $merchant->ssm_document->delete();
+        if($request->file('ssm_document')){
+            $ssm_document = $request->file('ssm_document');
+            $ssm_document->move(public_path().'/images/merchant/ssm_document', $img_ssm = 'img_'.Str::random(6).'.jpg');
         }
 
-        if ($request->input('logo', false)) {
-            if (!$merchant->logo || $request->input('logo') !== $merchant->logo->file_name) {
-                if ($merchant->logo) {
-                    $merchant->logo->delete();
-                }
-                $merchant->addMedia(storage_path('tmp/uploads/' . basename($request->input('logo'))))->toMediaCollection('logo');
-            }
-        } elseif ($merchant->logo) {
-            $merchant->logo->delete();
+        if($request->file('logo')){
+            $logo = $request->file('logo');
+            $logo->move(public_path().'/images/merchant/logo', $img_logo = 'img_'.Str::random(6).'.jpg');
         }
+
+        $merchant->update([ 
+            'name'  => $request->name,
+            'description' => $request->description,
+            'contact_number' => $request->contact_number,
+            'status' => 'pending',
+            'address' => $request->address1 . "," . $request->address2 . "," . $request->address3,
+            'state_id' => $request->state_id,
+            // 'longitude' => $request->longitude,
+            // 'latitude' => $request->latitude,
+            'ssm_number' => $request->ssm_number,
+            'ssm_document' => ($request->file('ssm_document')) ? $img_ssm : $merchant->ssm_document,
+            'logo' => ($request->file('logo')) ? $img_logo : $merchant->logo,
+            'created_by_id' => Auth::id(),]);
+
+        $merchant->categories()->sync($request->input('categories', []));
+        // if ($request->input('ssm_document', false)) {
+        //     if (!$merchant->ssm_document || $request->input('ssm_document') !== $merchant->ssm_document->file_name) {
+        //         if ($merchant->ssm_document) {
+        //             $merchant->ssm_document->delete();
+        //         }
+        //         dd(basename($request->input('ssm_document')));
+        //         $merchant->addMedia(storage_path('tmp/uploads/' . basename($request->input('ssm_document'))))->toMediaCollection('ssm_document');
+        //     }
+        // } elseif ($merchant->ssm_document) {
+        //     $merchant->ssm_document->delete();
+        // }
+
+        // if ($request->input('logo', false)) {
+        //     if (!$merchant->logo || $request->input('logo') !== $merchant->logo->file_name) {
+        //         if ($merchant->logo) {
+        //             $merchant->logo->delete();
+        //         }
+        //         $merchant->addMedia(storage_path('tmp/uploads/' . basename($request->input('logo'))))->toMediaCollection('logo');
+        //     }
+        // } elseif ($merchant->logo) {
+        //     $merchant->logo->delete();
+        // }
 
         return redirect()->route('admin.merchants.index');
     }

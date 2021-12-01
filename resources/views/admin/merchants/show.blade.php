@@ -101,8 +101,8 @@
                         </th>
                         <td>
                             @if($merchant->ssm_document)
-                                <a href="{{ $merchant->ssm_document->getUrl() }}" target="_blank">
-                                    <img src="public/storage/3/61987da79b84f_abc.png">
+                                <a href="{{url('images/merchant/ssm_document/'.$merchant->ssm_document)}}" target="_blank">
+                                    <img src="{{url('images/merchant/ssm_document/'.$merchant->ssm_document)}}" width="50" height="100">
                                 </a>
                             @endif
                         </td>
@@ -113,8 +113,8 @@
                         </th>
                         <td>
                             @if($merchant->logo)
-                                <a href="{{ $merchant->logo->getUrl() }}" target="_blank">
-                                    {{ trans('global.view_file') }}
+                                <a href="{{ url('images/merchant/logo/'.$merchant->logo) }}" target="_blank">
+                                    <img src="{{url('images/merchant/logo/'.$merchant->logo)}}" width="50" height="100">
                                 </a>
                             @endif
                         </td>

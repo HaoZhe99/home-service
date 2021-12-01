@@ -110,9 +110,8 @@
                     </div>
                     <div class="form-group">
                         <label for="ssm_document">{{ trans('cruds.merchant.fields.ssm_document') }}</label>
-                        <div class="needsclick dropzone {{ $errors->has('ssm_document') ? 'is-invalid' : '' }}"
-                            id="ssm_document-dropzone">
-                        </div>
+                        <input class="form-control {{ $errors->has('ssm_document') ? 'is-invalid' : '' }}" type="file"
+                            name="ssm_document" id="ssm_document" value="{{ old('ssm_document', $merchant->ssm_document) }}">
                         @if ($errors->has('ssm_document'))
                             <span class="text-danger">{{ $errors->first('ssm_document') }}</span>
                         @endif
@@ -120,9 +119,8 @@
                     </div>
                     <div class="form-group">
                         <label for="logo">{{ trans('cruds.merchant.fields.logo') }}</label>
-                        <div class="needsclick dropzone {{ $errors->has('logo') ? 'is-invalid' : '' }}"
-                            id="logo-dropzone">
-                        </div>
+                        <input class="form-control {{ $errors->has('logo') ? 'is-invalid' : '' }}" type="file"
+                            name="logo" id="logo" value="{{ old('logo', $merchant->logo) }}">
                         @if ($errors->has('logo'))
                             <span class="text-danger">{{ $errors->first('logo') }}</span>
                         @endif

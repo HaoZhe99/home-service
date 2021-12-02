@@ -31,6 +31,8 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin'], 
     Route::apiResource('servicers', 'ServicerApiController');
 
     // Order
+    Route::get('orders/oldOrder/{id}', 'OrderApiController@oldOrder');
+    Route::get('orders/newOrder/{id}', 'OrderApiController@newOrder');
     Route::apiResource('orders', 'OrderApiController');
 
     // Ebilling

@@ -28,7 +28,7 @@ class OrderTableSeeder extends Seeder
             [
                 'id'            => 2,
                 'price'         => '59',
-                'status'        => 'incomplete',
+                'status'        => 'complete',
                 'comment'       => 'Good Taste',
                 'rate'          => '5',
                 'date' =>'2021-11-05',
@@ -37,7 +37,7 @@ class OrderTableSeeder extends Seeder
                 'merchant_id'   => 2,
                 'package_id'    => 4,
                 'user_id'       => 4,
-                'servicer_id'   => 2,
+                'servicer_id'   => 1,
                 'qr_code_id'    => 2,
             ],
         ];

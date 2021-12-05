@@ -102,7 +102,7 @@
                                 </td> --}}
                                 <td>
                                     @can('order_show')
-                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.orders.show', $order->id) }}">
+                                        <a class="btn btn-xs btn-secondary" href="{{ route('admin.orders.show', $order->id) }}">
                                             {{ trans('global.view') }}
                                         </a>
                                     @endcan
@@ -123,6 +123,12 @@
                                         <a class="btn btn-xs btn-warning" href="{{ route('admin.orders.incomplete', $order->id) }}">
                                             Incomplete
                                         </a>
+                                    @endcan
+
+                                    @can('order_edit')
+                                        <button class="btn btn-xs btn-dark"  data-toggle="modal" data-target="#exampleModal">
+                                            Assign Servicer
+                                        </button>
                                     @endcan
 
                                     @can('order_delete')
@@ -146,7 +152,44 @@
         </div>
     </div>
 
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="card">
+                <div class="card-header">
+                    Assign Servicer
+                </div>
 
+                <div class="card-body">
+                    <form method="POST" action="{{ route('admin.orders.assign', [$order->id]) }}" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label for="servicer_id">{{ trans('cruds.order.fields.servicer') }}</label>
+                            <select class="form-control select2 {{ $errors->has('servicer') ? 'is-invalid' : '' }}"
+                                name="servicer_id" id="servicer_id">
+                                @foreach ($servicers as $id => $entry)
+                                    <option value="{{ $id }}"
+                                        {{ (old('servicer_id') ? old('servicer_id') : $servicer->id ?? '') == $id ? 'selected' : '' }}>
+                                        {{ $entry }}</option>
+                                @endforeach
+                            </select>
+                            @if ($errors->has('servicer'))
+                                <span class="text-danger">{{ $errors->first('servicer') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.order.fields.servicer_helper') }}</span>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-danger" type="submit">
+                                {{ trans('global.save') }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection
 @section('scripts')

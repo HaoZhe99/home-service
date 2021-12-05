@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             StateTableSeeder::class,
             CategoryTableSeeder::class,
             AddressTableSeeder::class,
+            AddressUserTableSeeder::class,
             MerchantTableSeeder::class,
             CategoryMerchantTableSeeder::class,
             PackageTableSeeder::class,

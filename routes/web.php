@@ -61,6 +61,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('servicers', 'ServicerController');
 
     // Order
+    Route::post('orders/assign/{order}', 'OrderController@assign')->name('orders.assign');
     Route::get('orders/complete/{order}', 'OrderController@complete')->name('orders.complete');
     Route::get('orders/incomplete/{order}', 'OrderController@incomplete')->name('orders.incomplete');
     Route::delete('orders/destroy', 'OrderController@massDestroy')->name('orders.massDestroy');

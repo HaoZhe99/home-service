@@ -29,10 +29,10 @@ class OrderApiController extends Controller
 
     public function show(Order $order)
     {
-        return new OrderResource($order->load(['merchant', 'package', 'user', 'servicer', 'qr_code']));
+        return new OrderResource($order->load(['merchant', 'package', 'user', 'servicer', 'qr_code','user.addresses']));
     }
 
-    public function update(UpdateOrderRequest $request, Order $order)
+    public function update(Request $request, Order $order)
     {
         $order->update($request->all());
 
@@ -59,7 +59,16 @@ class OrderApiController extends Controller
 
     public function oldOrder($id)
     {
-        $order = Order::where('servicer_id', $id)->where('status', 'complete')->with(['merchant', 'package', 'user', 'servicer'])->get();
+        $order = Order::where('servicer_id', $id)->where('status', 'completed')->with(['merchant', 'package', 'user', 'servicer'])->get();
+
+        return new OrderResource($order);
+    }
+
+    public function updateOrder(Request $request, Order $order)
+    {
+        $order->update([
+            'status'=>$request->status,
+        ]);
 
         return new OrderResource($order);
     }

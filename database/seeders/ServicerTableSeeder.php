@@ -12,14 +12,14 @@ class ServicerTableSeeder extends Seeder
         $servicer = [
             [
                 'id'            => 1,
-                'name'          => 'Servicer 1',
+                'name'          => 'Servicer 01',
                 'user_id'       => 5,
                 'merchant_id'   => 1,
             ],
             [
                 'id'            => 2,
-                'name'          => 'Servicer 2',
-                'user_id'       => 5,
+                'name'          => 'Servicer 02',
+                'user_id'       => 6,
                 'merchant_id'   => 2,
             ],
         ];

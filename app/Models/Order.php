@@ -39,6 +39,7 @@ class Order extends Model
         'comment',
         'date',
         'time',
+        'address',
         'rate',
         'remark',
         'merchant_id',

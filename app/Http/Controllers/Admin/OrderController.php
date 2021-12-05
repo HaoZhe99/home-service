@@ -15,6 +15,7 @@ use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 class OrderController extends Controller
@@ -25,13 +26,19 @@ class OrderController extends Controller
 
         if (Auth::id() == 1) {
             $orders = Order::with(['merchant', 'package', 'user', 'servicer', 'qr_code'])->get();
+            $a = DB::table('role_user')->where('role_id', 3)->get();
+            $b = [];
+            for ($i=0; $i < count($a) ; $i++) {  
+                array_push($b, $a[$i]->user_id);
+            }
+            $servicers = Servicer::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
         } else {
             $orders = Order::where('merchant_id', (Merchant::where('created_by_id', (User::where('id', Auth::id())->first())->id)->first())->id)
                 ->with(['merchant', 'package', 'user', 'servicer', 'qr_code'])->get();
         }
 
 
-        return view('admin.orders.index', compact('orders'));
+        return view('admin.orders.index', compact('orders','servicers'));
     }
 
     public function create()
@@ -95,7 +102,7 @@ class OrderController extends Controller
         return view('admin.orders.edit', compact('merchants', 'packages', 'users', 'servicers', 'qr_codes', 'order'));
     }
 
-    public function update(UpdateOrderRequest $request, Order $order)
+    public function update(Request $request, Order $order)
     {
         $order->update($request->all());
 
@@ -143,6 +150,13 @@ class OrderController extends Controller
         $order->update([
             'status' => 'incomplete'
         ]);
+
+        return redirect()->route('admin.orders.index');
+    }
+
+    public function assign(Request $request, Order $order)
+    {
+        $order->update(['servicer_id' => $request->servicer_id]);
 
         return redirect()->route('admin.orders.index');
     }

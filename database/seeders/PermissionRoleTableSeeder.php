@@ -20,5 +20,7 @@ class PermissionRoleTableSeeder extends Seeder
                 && substr($permission->title, 0, 8) != 'address_';
         });
         Role::findOrFail(2)->permissions()->sync($user_permissions);
+        
+        Role::findOrFail(3)->permissions()->sync($admin_permissions->pluck('id'));
     }
 }

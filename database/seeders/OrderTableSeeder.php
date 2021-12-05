@@ -2,13 +2,19 @@
 
 namespace Database\Seeders;
 
+use App\Models\Address;
 use App\Models\Order;
+use App\Models\State;
 use Illuminate\Database\Seeder;
 
 class OrderTableSeeder extends Seeder
 {
     public function run()
     {
+        $a = Address::inRandomOrder()->first();
+
+        $s = State::where('id',$a->state_id)->first();
+
         $order = [
             [
                 'id'            => 1,
@@ -18,6 +24,7 @@ class OrderTableSeeder extends Seeder
                 'rate'          => '5',
                 'date' =>'2021-11-29',
                 'time' =>'11:20',
+                'address'=>$a->address.','.$s->area.','.$s->postcode.','.$s->state,
                 'remark'        => '',
                 'merchant_id'   => 1,
                 'package_id'    => 1,
@@ -28,11 +35,12 @@ class OrderTableSeeder extends Seeder
             [
                 'id'            => 2,
                 'price'         => '59',
-                'status'        => 'complete',
+                'status'        => 'completed',
                 'comment'       => 'Good Taste',
                 'rate'          => '5',
                 'date' =>'2021-11-05',
                 'time' =>'17:20',
+                'address'=>$a->address.','.$s->area.','.$s->postcode.','.$s->state,
                 'remark'        => '',
                 'merchant_id'   => 2,
                 'package_id'    => 4,

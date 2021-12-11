@@ -52,15 +52,16 @@ class OrderApiController extends Controller
 
     public function newOrder($id)
     {
-        $order = Order::where('servicer_id', $id)->where('status', 'incomplete')->with(['merchant', 'package', 'user', 'servicer'])->get();
-
+        // $order = Order::where('servicer_id', $id)->where('status', 'incomplete')->with(['merchant', 'package', 'user', 'servicer'])->get();
+        $order = Order::where('status', 'incomplete')->with(['merchant', 'package', 'user', 'servicer'])->get();
         return new OrderResource($order);
     }
 
     public function oldOrder($id)
     {
-        $order = Order::where('servicer_id', $id)->where('status', 'completed')->with(['merchant', 'package', 'user', 'servicer'])->get();
+        // $order = Order::where('servicer_id', $id)->where('status', 'completed')->with(['merchant', 'package', 'user', 'servicer'])->get();
 
+        $order = Order::where('status', 'completed')->with(['merchant', 'package', 'user', 'servicer'])->get();
         return new OrderResource($order);
     }
 
@@ -68,6 +69,16 @@ class OrderApiController extends Controller
     {
         $order->update([
             'status'=>$request->status,
+        ]);
+
+        return new OrderResource($order);
+    }
+
+    public function commentAndRate(Request $request, Order $order)
+    {
+        $order->update([
+            'comment' => $request->comment,
+            'rate' => $request->rate,
         ]);
 
         return new OrderResource($order);

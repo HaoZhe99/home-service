@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePackageRequest;
 use App\Http\Requests\UpdatePackageRequest;
 use App\Http\Resources\Admin\PackageResource;
+use App\Models\Merchant;
 use App\Models\Package;
 use Gate;
 use Illuminate\Http\Request;
@@ -48,5 +49,13 @@ class PackageApiController extends Controller
         $package->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function packageFilter(Merchant $merchant)
+    {
+
+        $package = Package::where('merchant_id', $merchant->id)->with(['merchant'])->get();
+
+        return new PackageResource($package);
     }
 }

@@ -16,7 +16,7 @@ class CreateOrdersTable extends Migration
             $table->string('time')->nullable();
             $table->string('address')->nullable();
             $table->string('comment')->nullable();
-            $table->string('rate')->nullable();
+            $table->integer('rate')->nullable();
             $table->string('remark')->nullable();
             $table->timestamps();
             $table->softDeletes();

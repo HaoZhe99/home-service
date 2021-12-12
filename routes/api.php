@@ -10,6 +10,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin'], 
     Route::apiResource('categories', 'CategoryApiController');
 
     // Package
+    Route::get('packages/packageFilter/{merchant}', 'PackageApiController@packageFilter');
     Route::apiResource('packages', 'PackageApiController');
 
     // Merchant

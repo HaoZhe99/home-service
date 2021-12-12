@@ -60,7 +60,7 @@
                             {{ trans('cruds.package.fields.merchant') }}
                         </th>
                         <td>
-                            {{ $package->merchant->description ?? '' }}
+                            {{ $package->merchant->name ?? '' }}
                         </td>
                     </tr>
                 </tbody>

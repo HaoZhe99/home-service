@@ -103,7 +103,7 @@ class MerchantController extends Controller
         return view('admin.merchants.edit', compact('states', 'categories', 'merchant'));
     }
 
-    public function update(UpdateMerchantRequest $request, Merchant $merchant)
+    public function update(Request $request, Merchant $merchant)
     {
         if($request->file('ssm_document')){
             $ssm_document = $request->file('ssm_document');
@@ -115,12 +115,14 @@ class MerchantController extends Controller
             $logo->move(public_path().'/images/merchant/logo', $img_logo = 'img_'.Str::random(6).'.jpg');
         }
 
+        // dd($request->file('ssm_document'));
+        // dd($request->file('logo'));
         $merchant->update([ 
             'name'  => $request->name,
             'description' => $request->description,
             'contact_number' => $request->contact_number,
             'status' => 'pending',
-            'address' => $request->address1 . "," . $request->address2 . "," . $request->address3,
+            'address' => $request->address,
             'state_id' => $request->state_id,
             // 'longitude' => $request->longitude,
             // 'latitude' => $request->latitude,

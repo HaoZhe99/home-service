@@ -32,6 +32,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin'], 
     Route::apiResource('servicers', 'ServicerApiController');
 
     // Order
+    Route::get('orders/orderWithComment/{merchant}', 'OrderApiController@orderWithComment');
     Route::post('orders/commentAndRate/{order}', 'OrderApiController@commentAndRate');
     Route::post('orders/updateOrder/{order}', 'OrderApiController@updateOrder');
     Route::get('orders/oldOrder/{id}', 'OrderApiController@oldOrder');

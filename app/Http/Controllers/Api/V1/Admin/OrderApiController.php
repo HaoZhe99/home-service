@@ -83,4 +83,12 @@ class OrderApiController extends Controller
 
         return new OrderResource($order);
     }
+
+    public function orderWithComment($merchant)
+    {
+        // $order = Order::where('servicer_id', $id)->where('status', 'completed')->with(['merchant', 'package', 'user', 'servicer'])->get();
+
+        $order = Order::where('merchant_id', $merchant)->with(['merchant', 'user'])->get();
+        return new OrderResource($order);
+    }
 }

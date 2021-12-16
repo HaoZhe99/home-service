@@ -257,6 +257,8 @@ return [
             'price_helper'      => ' ',
             'status'            => 'Status',
             'status_helper'     => ' ',
+            'payment_method'    =>'Payment Method',
+            'payment_method_helper'=>'',
             'comment'           => 'Comment',
             'comment_helper'    => ' ',
             'rate'              => 'Rate (Star)',

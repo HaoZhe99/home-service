@@ -37,6 +37,23 @@
                         <span class="help-block">{{ trans('cruds.order.fields.status_helper') }}</span>
                     </div>
                     <div class="form-group">
+                        <label>{{ trans('cruds.order.fields.payment_method') }}</label>
+                        <select class="form-control {{ $errors->has('payment_method') ? 'is-invalid' : '' }}" name="payment_method"
+                            id="payment_method">
+                            <option value disabled {{ old('payment_method', null) === null ? 'selected' : '' }}>
+                                {{ trans('global.pleaseSelect') }}</option>
+                            @foreach (App\Models\Order::PAYMENT_METHOD as $key => $label)
+                                <option value="{{ $key }}"
+                                    {{ old('payment_method', '') === (string) $key ? 'selected' : '' }}>{{ $label }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @if ($errors->has('payment_method'))
+                            <span class="text-danger">{{ $errors->first('payment_method') }}</span>
+                        @endif
+                        <span class="help-block">{{ trans('cruds.order.fields.payment_method_helper') }}</span>
+                    </div>
+                    <div class="form-group">
                         <label for="comment">{{ trans('cruds.order.fields.comment') }}</label>
                         <input class="form-control {{ $errors->has('comment') ? 'is-invalid' : '' }}" type="text"
                             name="comment" id="comment" value="{{ old('comment', '') }}">

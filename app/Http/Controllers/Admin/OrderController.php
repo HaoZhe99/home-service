@@ -71,7 +71,7 @@ class OrderController extends Controller
         return view('admin.orders.create', compact('merchants', 'packages', 'users', 'servicers', 'qr_codes'));
     }
 
-    public function store(StoreOrderRequest $request)
+    public function store(Request $request)
     {
         $order = Order::create($request->all());
 

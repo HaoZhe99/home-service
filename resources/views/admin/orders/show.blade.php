@@ -41,6 +41,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.order.fields.payment_method') }}
+                        </th>
+                        <td>
+                            {{ App\Models\Order::PAYMENT_METHOD[$order->payment_method] ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.order.fields.comment') }}
                         </th>
                         <td>

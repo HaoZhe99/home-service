@@ -39,18 +39,18 @@
                             {{ App\Models\Ebilling::STATUS_SELECT[$ebilling->status] ?? '' }}
                         </td>
                     </tr>
-                    <tr>
+                    {{-- <tr>
                         <th>
                             {{ trans('cruds.ebilling.fields.receipt') }}
                         </th>
                         <td>
-                            {{-- @if($ebilling->receipt) --}}
+                            @if($ebilling->receipt)
                                 <a href="{{url('/images/1/abc.png')}}" target="_blank">
                                     <img src="{{url('images/1/abc.png')}}" width="50" height="100">
                                 </a>
-                            {{-- @endif --}}
+                            @endif
                         </td>
-                    </tr>
+                    </tr> --}}
                     <tr>
                         <th>
                             {{ trans('cruds.ebilling.fields.remark') }}
@@ -64,7 +64,7 @@
                             {{ trans('cruds.ebilling.fields.order') }}
                         </th>
                         <td>
-                            {{ $ebilling->order->price ?? '' }}
+                            {{ $ebilling->order->merchant->name ?? '' }}
                         </td>
                     </tr>
                     <tr>

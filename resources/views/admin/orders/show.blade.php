@@ -39,14 +39,14 @@
                             {{ App\Models\Order::STATUS_SELECT[$order->status] ?? '' }}
                         </td>
                     </tr>
-                    <tr>
+                    {{-- <tr>
                         <th>
                             {{ trans('cruds.order.fields.payment_method') }}
                         </th>
                         <td>
                             {{ App\Models\Order::PAYMENT_METHOD[$order->payment_method] ?? '' }}
                         </td>
-                    </tr>
+                    </tr> --}}
                     <tr>
                         <th>
                             {{ trans('cruds.order.fields.comment') }}

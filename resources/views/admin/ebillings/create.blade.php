@@ -36,7 +36,7 @@
                         @endif
                         <span class="help-block">{{ trans('cruds.ebilling.fields.status_helper') }}</span>
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="receipt">{{ trans('cruds.ebilling.fields.receipt') }}</label>
                         <div class="needsclick dropzone {{ $errors->has('receipt') ? 'is-invalid' : '' }}"
                             id="receipt-dropzone">
@@ -45,7 +45,7 @@
                             <span class="text-danger">{{ $errors->first('receipt') }}</span>
                         @endif
                         <span class="help-block">{{ trans('cruds.ebilling.fields.receipt_helper') }}</span>
-                    </div>
+                    </div> --}}
                     <div class="form-group">
                         <label for="remark">{{ trans('cruds.ebilling.fields.remark') }}</label>
                         <input class="form-control {{ $errors->has('remark') ? 'is-invalid' : '' }}" type="text"

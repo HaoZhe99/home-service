@@ -46,13 +46,13 @@ class EbillingController extends Controller
     {
         $ebilling = Ebilling::create($request->all());
 
-        if ($request->input('receipt', false)) {
-            $ebilling->addMedia(storage_path('tmp/uploads/' . basename($request->input('receipt'))))->toMediaCollection('receipt');
-        }
+        // if ($request->input('receipt', false)) {
+        //     $ebilling->addMedia(storage_path('tmp/uploads/' . basename($request->input('receipt'))))->toMediaCollection('receipt');
+        // }
 
-        if ($media = $request->input('ck-media', false)) {
-            Media::whereIn('id', $media)->update(['model_id' => $ebilling->id]);
-        }
+        // if ($media = $request->input('ck-media', false)) {
+        //     Media::whereIn('id', $media)->update(['model_id' => $ebilling->id]);
+        // }
 
         return redirect()->route('admin.ebillings.index');
     }
@@ -76,16 +76,16 @@ class EbillingController extends Controller
     {
         $ebilling->update($request->all());
 
-        if ($request->input('receipt', false)) {
-            if (!$ebilling->receipt || $request->input('receipt') !== $ebilling->receipt->file_name) {
-                if ($ebilling->receipt) {
-                    $ebilling->receipt->delete();
-                }
-                $ebilling->addMedia(storage_path('tmp/uploads/' . basename($request->input('receipt'))))->toMediaCollection('receipt');
-            }
-        } elseif ($ebilling->receipt) {
-            $ebilling->receipt->delete();
-        }
+        // if ($request->input('receipt', false)) {
+        //     if (!$ebilling->receipt || $request->input('receipt') !== $ebilling->receipt->file_name) {
+        //         if ($ebilling->receipt) {
+        //             $ebilling->receipt->delete();
+        //         }
+        //         $ebilling->addMedia(storage_path('tmp/uploads/' . basename($request->input('receipt'))))->toMediaCollection('receipt');
+        //     }
+        // } elseif ($ebilling->receipt) {
+        //     $ebilling->receipt->delete();
+        // }
 
         return redirect()->route('admin.ebillings.index');
     }

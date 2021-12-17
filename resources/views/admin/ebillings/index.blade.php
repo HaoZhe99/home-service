@@ -78,7 +78,7 @@
                                 {{ $ebilling->remark ?? '' }}
                             </td> --}}
                                 <td>
-                                    {{ $ebilling->order->price ?? '' }}
+                                    {{ $ebilling->order->merchant->name ?? '' }}
                                 </td>
                                 <td>
                                     {{ $ebilling->user->name ?? '' }}

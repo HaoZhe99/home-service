@@ -15,7 +15,6 @@ class PaymentMethodApiController extends Controller
 {
     public function index()
     {
-        abort_if(Gate::denies('payment_method_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return new PaymentMethodResource(PaymentMethod::all());
     }

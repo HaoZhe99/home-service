@@ -24,12 +24,6 @@ class Order extends Model
         'completed'   => 'Completed',
         'incomplete' => 'Incomplete',
     ];
-    
-    public const PAYMENT_METHOD = [
-        'cash'   => 'Cash',
-        'credit/debit' => 'Credit/Debit Card',
-    ];
-
 
     public $table = 'orders';
 
@@ -46,7 +40,6 @@ class Order extends Model
         'date',
         'time',
         'address',
-        'payment_method',
         'rate',
         'remark',
         'merchant_id',

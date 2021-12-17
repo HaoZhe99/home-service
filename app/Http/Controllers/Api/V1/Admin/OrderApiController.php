@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Http\Resources\Admin\OrderResource;
+use App\Models\Ebilling;
 use App\Models\Order;
 use Gate;
 use Illuminate\Http\Request;
@@ -21,6 +22,15 @@ class OrderApiController extends Controller
     public function store(Request $request)
     {
         $order = Order::create($request->all());
+        // dd($order->id);
+
+        Ebilling::create([
+            'money' => $order->price,
+            'status' => 'pending',
+            'order_id' => $order->id,
+            'user_id' => $order->user_id,
+            'payment_method_id' => $request->payment_method_id,
+        ]);
 
         return (new OrderResource($order))
             ->response()

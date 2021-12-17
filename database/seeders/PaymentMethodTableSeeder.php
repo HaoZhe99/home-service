@@ -12,7 +12,7 @@ class PaymentMethodTableSeeder extends Seeder
         $payment_method = [
             [
                 'id'             => 1,
-                'name'           => 'Online Transfer',
+                'name'           => 'Cash',
                 'status'          => 'active',
             ],
             [

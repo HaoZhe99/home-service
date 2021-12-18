@@ -67,6 +67,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('orders/destroy', 'OrderController@massDestroy')->name('orders.massDestroy');
     Route::resource('orders', 'OrderController');
 
+    // Card
+    Route::delete('cards/destroy', 'CardController@massDestroy')->name('cards.massDestroy');
+    Route::resource('cards', 'CardController');
+
     // Ebilling
     Route::get('ebillings/approve/{ebilling}', 'EbillingController@approve')->name('ebillings.approve');
     Route::get('ebillings/reject/{ebilling}', 'EbillingController@reject')->name('ebillings.reject');

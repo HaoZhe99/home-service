@@ -330,6 +330,30 @@ class PermissionsTableSeeder extends Seeder
                 'id'    => 80,
                 'title' => 'merchant_reject',
             ],
+            [
+                'id'    => 81,
+                'title' => 'card_management_access',
+            ],
+            [
+                'id'    => 82,
+                'title' => 'card_create',
+            ],
+            [
+                'id'    => 83,
+                'title' => 'card_edit',
+            ],
+            [
+                'id'    => 84,
+                'title' => 'card_show',
+            ],
+            [
+                'id'    => 85,
+                'title' => 'card_delete',
+            ],
+            [
+                'id'    => 86,
+                'title' => 'card_access',
+            ],
         ];
 
         Permission::insert($permissions);

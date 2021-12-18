@@ -227,6 +227,33 @@
                         </ul>
                     </li>
                 @endcan
+                @can('card_management_access')
+                <li class="nav-item has-treeview {{ request()->is("admin/cards*") ? "menu-open" : "" }}">
+                    <a class="nav-link nav-dropdown-toggle" href="#">
+                        <i class="fa-fw nav-icon fas fa-credit-card">
+
+                        </i>
+                        <p>
+                            {{ trans('cruds.cardManagement.title') }}
+                            <i class="right fa fa-fw fa-angle-left nav-icon"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        @can('card_access')
+                            <li class="nav-item">
+                                <a href="{{ route("admin.cards.index") }}" class="nav-link {{ request()->is("admin/cards") || request()->is("admin/cards/*") ? "active" : "" }}">
+                                    <i class="fa-fw nav-icon fas fa-credit-card">
+
+                                    </i>
+                                    <p>
+                                        {{ trans('cruds.card.title') }}
+                                    </p>
+                                </a>
+                            </li>
+                        @endcan
+                    </ul>
+                </li>
+            @endcan
                 @can('e_billing_management_access')
                     <li class="nav-item has-treeview {{ request()->is("admin/ebillings*") ? "menu-open" : "" }} {{ request()->is("admin/payment-methods*") ? "menu-open" : "" }}">
                         <a class="nav-link nav-dropdown-toggle" href="#">

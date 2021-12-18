@@ -39,6 +39,9 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin'], 
     Route::get('orders/newOrder/{id}', 'OrderApiController@newOrder');
     Route::apiResource('orders', 'OrderApiController');
 
+    // Card
+    Route::apiResource('cards', 'CardApiController');
+
     // Ebilling
     Route::post('ebillings/media', 'EbillingApiController@storeMedia')->name('ebillings.storeMedia');
     Route::apiResource('ebillings', 'EbillingApiController');

@@ -3,7 +3,7 @@
 Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin'], function () {
     // Users
     Route::post('users/register', 'UsersApiController@register');
-    Route::get('users/login/{input}', 'UsersApiController@login');
+    Route::get('users/login/{email}/{password}', 'UsersApiController@login');
     Route::apiResource('users', 'UsersApiController');
 
     // Category

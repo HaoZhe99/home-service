@@ -69,9 +69,9 @@ class UsersApiController extends Controller
             ->setStatusCode(Response::HTTP_CREATED);
     }
 
-    public function login($input)
+    public function login($email, $password)
     {
-        $user = User::with(['roles'])->where('email', $input)->orWhere('name', $input)->first();
+        $user = User::with(['roles'])->where('email', $email)->orWhere('name', $password)->first();
 
         return new UserResource($user);
     }

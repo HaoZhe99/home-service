@@ -27,9 +27,9 @@ class EbillingApiController extends Controller
     {
         $ebilling = Ebilling::create($request->all());
 
-        if ($request->input('receipt', false)) {
-            $ebilling->addMedia(storage_path('tmp/uploads/' . basename($request->input('receipt'))))->toMediaCollection('receipt');
-        }
+        // if ($request->input('receipt', false)) {
+        //     $ebilling->addMedia(storage_path('tmp/uploads/' . basename($request->input('receipt'))))->toMediaCollection('receipt');
+        // }
 
         return (new EbillingResource($ebilling))
             ->response()

@@ -9,6 +9,7 @@ use App\Http\Resources\Admin\UserResource;
 use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
 class UsersApiController extends Controller
@@ -69,10 +70,21 @@ class UsersApiController extends Controller
             ->setStatusCode(Response::HTTP_CREATED);
     }
 
-    public function login($email, $password)
+    public function login(Request $request)
     {
-        $user = User::with(['roles'])->where('email', $email)->orWhere('name', $password)->first();
+        $user = User::with(['roles'])->where('email', $request->email)->first();
 
-        return new UserResource($user);
+        if ($user == null) {
+           return "false";
+        } else {
+            if (Hash::check($request->password, $user->password)) {
+                return "true";
+            } else {
+                return "false";
+            }
+        }
+        
+        
+        
     }
 }

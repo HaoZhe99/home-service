@@ -2,6 +2,7 @@
 
 Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin'], function () {
     // Users
+    Route::post('users/checkUser', 'UsersApiController@checkUser');
     Route::post('users/register', 'UsersApiController@register');
     Route::post('users/login', 'UsersApiController@login');
     Route::apiResource('users', 'UsersApiController');

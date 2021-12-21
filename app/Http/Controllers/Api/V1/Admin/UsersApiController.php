@@ -83,8 +83,21 @@ class UsersApiController extends Controller
                 return "false";
             }
         }
-        
-        
-        
     }
+
+    public function checkUser(Request $request)
+    {
+        $user = User::with(['roles'])->where('email', $request->email)->first();
+
+        if ($user == null) {
+           return "false";
+        } else {
+            if (Hash::check($request->password, $user->password)) {
+                return new UserResource($user);
+            } else {
+                return "false";
+            }
+        }
+    }
+
 }

@@ -8,11 +8,13 @@ use App\Http\Requests\MassDestroyEbillingRequest;
 use App\Http\Requests\StoreEbillingRequest;
 use App\Http\Requests\UpdateEbillingRequest;
 use App\Models\Ebilling;
+use App\Models\Merchant;
 use App\Models\Order;
 use App\Models\PaymentMethod;
 use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -24,7 +26,13 @@ class EbillingController extends Controller
     {
         abort_if(Gate::denies('ebilling_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $ebillings = Ebilling::with(['order', 'user', 'payment_method', 'media'])->get();
+        if (Auth::user()->roles[0]->id == 1) {
+            $ebillings = Ebilling::with(['order', 'user', 'payment_method', 'media'])->get();
+        } elseif (Auth::user()->roles[0]->id==2) {
+            $ebillings = Ebilling::where('user_id',Auth::id())->with(['order', 'user', 'payment_method', 'media'])->get();
+        } elseif (Auth::user()->roles[0]->id==3) {
+            $ebillings = Ebilling::where('order_id', (Order::where('merchant_id', (Merchant::where('created_by_id', (User::where('id', Auth::id())->first())->id)->first())->id))->first()->id)->get();
+        }
 
         return view('admin.ebillings.index', compact('ebillings'));
     }
@@ -33,7 +41,11 @@ class EbillingController extends Controller
     {
         abort_if(Gate::denies('ebilling_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $orders = Order::pluck('price', 'id')->prepend(trans('global.pleaseSelect'), '');
+        if (Auth::user()->roles[0]->id == 1) {
+            $orders = Order::pluck('price', 'id')->prepend(trans('global.pleaseSelect'), '');
+        } elseif (Auth::user()->roles[0]->id==3) {
+            $orders = Order::where('merchant_id', (Merchant::where('created_by_id', (User::where('id', Auth::id())->first())->id)->first())->id)->pluck('price', 'id')->prepend(trans('global.pleaseSelect'), '');
+        }
 
         $users = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 

@@ -15,10 +15,10 @@ class CreateUsersTable extends Migration
             $table->string('email')->nullable()->unique();
             $table->string('password')->nullable();
             $table->string('phone')->nullable();
-            $table->datetime('email_verified_at')->nullable();
-            $table->string('remember_token')->nullable();
+            // $table->datetime('email_verified_at')->nullable();
+            // $table->string('remember_token')->nullable();
             $table->boolean('verify')->default(0)->nullable();
-            $table->string('verify_token')->nullable();
+            // $table->string('verify_token')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

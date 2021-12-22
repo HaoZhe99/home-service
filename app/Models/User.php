@@ -41,8 +41,8 @@ class User extends Authenticatable
         'email',
         'password',
         'phone',
-        // 'email_verified_at',
-        'remember_token',
+        'created_by_id',
+        // 'remember_token',
         'verify',
         // 'verify_token',
         'created_at',
@@ -53,6 +53,11 @@ class User extends Authenticatable
     public function getIsAdminAttribute()
     {
         return $this->roles()->where('id', 1)->exists();
+    }
+
+    public function created_by()
+    {
+        return $this->belongsTo(User::class, 'created_by_id');
     }
 
     public function setPasswordAttribute($input)

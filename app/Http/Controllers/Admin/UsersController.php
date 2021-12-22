@@ -25,7 +25,7 @@ class UsersController extends Controller
         if (Auth::id() == 1) {
             $users = User::with(['roles', 'addresses'])->get();
         } else {
-            $users = User::where('id', Auth::id())->with(['roles', 'addresses'])->get();
+            $users = User::where('id', Auth::id())->orWhere('created_by_id', Auth::id())->with(['roles', 'addresses'])->get();
         }
 
 
@@ -40,7 +40,7 @@ class UsersController extends Controller
 
         if (Auth::user()->roles[0]->id == 1) {
             $addresses = Address::pluck('address', 'id');
-        } else if(Auth::user()->roles[0]->id == 2){
+        } else if(Auth::user()->roles[0]->id == 2 || Auth::user()->roles[0]->id == 3 ){
             $addresses = Address::where('created_by_id', Auth::id())->pluck('address', 'id');
         }
         
@@ -48,14 +48,35 @@ class UsersController extends Controller
         return view('admin.users.create', compact('roles', 'addresses'));
     }
 
-    public function store(StoreUserRequest $request)
+    public function store(Request $request)
     {
-        $user = User::create($request->all());
+        if (Auth::user()->roles[0]->id == 1) {
+            $user = User::create([
+                'name' => $request->name,
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => $request->password,
+                'phone' => $request->phone,
+                'created_by_id' => Auth::id(),
+                'verify' =>  $request->verify,
+            ]);
+        } else if(Auth::user()->roles[0]->id == 3){ 
+            $user = User::create([
+                'name' => $request->name,
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => $request->password,
+                'phone' => $request->phone,
+                'created_by_id' => Auth::id(),
+                'verify' => 1,
+            ]);
+        }
+       
         
         if (Auth::user()->roles[0]->id == 1) {
             $user->roles()->sync($request->input('roles', []));
-        } else if(Auth::user()->roles[0]->id == 2){
-            $user->roles()->sync(2);
+        } else if(Auth::user()->roles[0]->id == 3){
+            $user->roles()->sync(4);
         }
 
         $user->addresses()->sync($request->input('addresses', []));
@@ -71,7 +92,7 @@ class UsersController extends Controller
 
         if (Auth::user()->roles[0]->id == 1) {
             $addresses = Address::pluck('address', 'id');
-        } else if(Auth::user()->roles[0]->id == 2){
+        } else if(Auth::user()->roles[0]->id == 2 || Auth::user()->roles[0]->id == 3 ){
             $addresses = Address::where('created_by_id', Auth::id())->pluck('address', 'id');
         }
 
@@ -82,12 +103,33 @@ class UsersController extends Controller
 
     public function update(Request $request, User $user)
     {
-        $user->update($request->all());
+
+        if (Auth::user()->roles[0]->id == 1) {
+            $user->update([
+                'name' => $request->name,
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => $request->password,
+                'phone' => $request->phone,
+                'created_by_id' => Auth::id(),
+                'verify' =>  $request->verify,
+            ]);
+        } else if(Auth::user()->roles[0]->id == 3){ 
+            $user->update([
+                'name' => $request->name,
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => $request->password,
+                'phone' => $request->phone,
+                'created_by_id' => Auth::id(),
+                'verify' => 1,
+            ]);
+        }
 
         if (Auth::user()->roles[0]->id == 1) {
             $user->roles()->sync($request->input('roles', []));
-        } else if(Auth::user()->roles[0]->id == 2){
-            $user->roles()->sync(2);
+        } else if(Auth::user()->roles[0]->id == 3){
+            $user->roles()->sync(4);
         }
         
         $user->addresses()->sync($request->input('addresses', []));

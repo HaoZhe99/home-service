@@ -35,12 +35,13 @@ class OrderController extends Controller
         } elseif (Auth::user()->roles[0]->id==2) {
             $orders = Order::where('user_id', Auth::id())
                 ->with(['merchant', 'package', 'user', 'servicer'])->get();
-        } else {
+        } elseif (Auth::user()->roles[0]->id==3) {
             $orders = Order::where('merchant_id', (Merchant::where('created_by_id', (User::where('id', Auth::id())->first())->id)->first())->id)
                 ->with(['merchant', 'package', 'user', 'servicer'])->get();
+            $servicers = Servicer::where('merchant_id', (Merchant::where('created_by_id', Auth::id())->first())->id)->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
         }
 
-        if (Auth::id() == 1) {
+        if (Auth::id() == 1 || Auth::user()->roles[0]->id==3) {
             return view('admin.orders.index', compact('orders','servicers'));
         } else {
             return view('admin.orders.index', compact('orders'));

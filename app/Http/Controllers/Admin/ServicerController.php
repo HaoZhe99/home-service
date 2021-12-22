@@ -33,9 +33,17 @@ class ServicerController extends Controller
     {
         abort_if(Gate::denies('servicer_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $users = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        if (Auth::user()->roles[0]->id == 1) {
+            $users = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        } else {
+            $users = User::where('created_by_id', Auth::id())->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        }
 
-        $merchants = Merchant::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        if (Auth::user()->roles[0]->id == 1) {
+            $merchants = Merchant::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        } else {
+            $merchants = Merchant::where('created_by_id', Auth::id())->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        }
 
         return view('admin.servicers.create', compact('users', 'merchants'));
     }

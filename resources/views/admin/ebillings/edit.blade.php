@@ -13,18 +13,18 @@
                     @method('PUT')
                     @csrf
                     <div class="form-group">
-                        <label for="money">{{ trans('cruds.ebilling.fields.money') }}</label>
+                        <label for="money" class="required">{{ trans('cruds.ebilling.fields.money') }}</label>
                         <input class="form-control {{ $errors->has('money') ? 'is-invalid' : '' }}" type="number"
-                            name="money" id="money" value="{{ old('money', $ebilling->money) }}" step="0.01">
+                            name="money" id="money" value="{{ old('money', $ebilling->money) }}" step="0.01" required>
                         @if ($errors->has('money'))
                             <span class="text-danger">{{ $errors->first('money') }}</span>
                         @endif
                         <span class="help-block">{{ trans('cruds.ebilling.fields.money_helper') }}</span>
                     </div>
                     <div class="form-group">
-                        <label>{{ trans('cruds.ebilling.fields.status') }}</label>
+                        <label class="required">{{ trans('cruds.ebilling.fields.status') }}</label>
                         <select class="form-control {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status"
-                            id="status">
+                            id="status" required>
                             <option value disabled {{ old('status', null) === null ? 'selected' : '' }}>
                                 {{ trans('global.pleaseSelect') }}</option>
                             @foreach (App\Models\Ebilling::STATUS_SELECT as $key => $label)
@@ -58,9 +58,9 @@
                         <span class="help-block">{{ trans('cruds.ebilling.fields.remark_helper') }}</span>
                     </div>
                     <div class="form-group">
-                        <label for="order_id">{{ trans('cruds.ebilling.fields.order') }}</label>
+                        <label for="order_id" class="required">{{ trans('cruds.ebilling.fields.order') }}</label>
                         <select class="form-control select2 {{ $errors->has('order') ? 'is-invalid' : '' }}"
-                            name="order_id" id="order_id">
+                            name="order_id" id="order_id" required>
                             @foreach ($orders as $id => $entry)
                                 <option value="{{ $id }}"
                                     {{ (old('order_id') ? old('order_id') : $ebilling->order->id ?? '') == $id ? 'selected' : '' }}>
@@ -72,25 +72,27 @@
                         @endif
                         <span class="help-block">{{ trans('cruds.ebilling.fields.order_helper') }}</span>
                     </div>
+                    @if (Auth::user()->roles[0]->id == 1)
+                        <div class="form-group">
+                            <label for="user_id">{{ trans('cruds.ebilling.fields.user') }}</label>
+                            <select class="form-control select2 {{ $errors->has('user') ? 'is-invalid' : '' }}"
+                                name="user_id" id="user_id">
+                                @foreach ($users as $id => $entry)
+                                    <option value="{{ $id }}"
+                                        {{ (old('user_id') ? old('user_id') : $ebilling->user->id ?? '') == $id ? 'selected' : '' }}>
+                                        {{ $entry }}</option>
+                                @endforeach
+                            </select>
+                            @if ($errors->has('user'))
+                                <span class="text-danger">{{ $errors->first('user') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.ebilling.fields.user_helper') }}</span>
+                        </div>
+                    @endif
                     <div class="form-group">
-                        <label for="user_id">{{ trans('cruds.ebilling.fields.user') }}</label>
-                        <select class="form-control select2 {{ $errors->has('user') ? 'is-invalid' : '' }}"
-                            name="user_id" id="user_id">
-                            @foreach ($users as $id => $entry)
-                                <option value="{{ $id }}"
-                                    {{ (old('user_id') ? old('user_id') : $ebilling->user->id ?? '') == $id ? 'selected' : '' }}>
-                                    {{ $entry }}</option>
-                            @endforeach
-                        </select>
-                        @if ($errors->has('user'))
-                            <span class="text-danger">{{ $errors->first('user') }}</span>
-                        @endif
-                        <span class="help-block">{{ trans('cruds.ebilling.fields.user_helper') }}</span>
-                    </div>
-                    <div class="form-group">
-                        <label for="payment_method_id">{{ trans('cruds.ebilling.fields.payment_method') }}</label>
+                        <label for="payment_method_id" class="required">{{ trans('cruds.ebilling.fields.payment_method') }}</label>
                         <select class="form-control select2 {{ $errors->has('payment_method') ? 'is-invalid' : '' }}"
-                            name="payment_method_id" id="payment_method_id">
+                            name="payment_method_id" id="payment_method_id" required>
                             @foreach ($payment_methods as $id => $entry)
                                 <option value="{{ $id }}"
                                     {{ (old('payment_method_id') ? old('payment_method_id') : $ebilling->payment_method->id ?? '') == $id ? 'selected' : '' }}>

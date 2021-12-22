@@ -56,7 +56,11 @@ class PackageController extends Controller
     {
         abort_if(Gate::denies('package_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $merchants = Merchant::pluck('description', 'id')->prepend(trans('global.pleaseSelect'), '');
+        if (Auth::id() == 1) {
+            $merchants = Merchant::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        } else {
+            $merchants = Merchant::where('created_by_id', Auth::id())->where('status','approved')->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        }
 
         $package->load('merchant');
 

@@ -13,18 +13,18 @@
                     @method('PUT')
                     @csrf
                     <div class="form-group">
-                        <label for="price">{{ trans('cruds.order.fields.price') }}</label>
+                        <label for="price" class="required">{{ trans('cruds.order.fields.price') }}</label>
                         <input class="form-control {{ $errors->has('price') ? 'is-invalid' : '' }}" type="number"
-                            name="price" id="price" value="{{ old('price', $order->price) }}" step="0.01">
+                            name="price" id="price" value="{{ old('price', $order->price) }}" step="0.01" required>
                         @if ($errors->has('price'))
                             <span class="text-danger">{{ $errors->first('price') }}</span>
                         @endif
                         <span class="help-block">{{ trans('cruds.order.fields.price_helper') }}</span>
                     </div>
                     <div class="form-group">
-                        <label>{{ trans('cruds.order.fields.status') }}</label>
+                        <label class="required">{{ trans('cruds.order.fields.status') }}</label>
                         <select class="form-control {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status"
-                            id="status">
+                            id="status" required>
                             <option value disabled {{ old('status', null) === null ? 'selected' : '' }}>
                                 {{ trans('global.pleaseSelect') }}</option>
                             @foreach (App\Models\Order::STATUS_SELECT as $key => $label)
@@ -91,9 +91,9 @@
                         <span class="help-block">{{ trans('cruds.order.fields.remark_helper') }}</span>
                     </div>
                     <div class="form-group">
-                        <label for="merchant_id">{{ trans('cruds.order.fields.merchant') }}</label>
+                        <label for="merchant_id" class="required">{{ trans('cruds.order.fields.merchant') }}</label>
                         <select class="form-control select2 {{ $errors->has('merchant') ? 'is-invalid' : '' }}"
-                            name="merchant_id" id="merchant_id">
+                            name="merchant_id" id="merchant_id" required>
                             @foreach ($merchants as $id => $entry)
                                 <option value="{{ $id }}"
                                     {{ (old('merchant_id') ? old('merchant_id') : $order->merchant->id ?? '') == $id ? 'selected' : '' }}>
@@ -106,9 +106,9 @@
                         <span class="help-block">{{ trans('cruds.order.fields.merchant_helper') }}</span>
                     </div>
                     <div class="form-group">
-                        <label for="package_id">{{ trans('cruds.order.fields.package') }}</label>
+                        <label for="package_id" class="required">{{ trans('cruds.order.fields.package') }}</label>
                         <select class="form-control select2 {{ $errors->has('package') ? 'is-invalid' : '' }}"
-                            name="package_id" id="package_id">
+                            name="package_id" id="package_id" required>
                             @foreach ($packages as $id => $entry)
                                 <option value="{{ $id }}"
                                     {{ (old('package_id') ? old('package_id') : $order->package->id ?? '') == $id ? 'selected' : '' }}>
@@ -120,21 +120,35 @@
                         @endif
                         <span class="help-block">{{ trans('cruds.order.fields.package_helper') }}</span>
                     </div>
-                    <div class="form-group">
-                        <label for="user_id">{{ trans('cruds.order.fields.user') }}</label>
-                        <select class="form-control select2 {{ $errors->has('user') ? 'is-invalid' : '' }}"
-                            name="user_id" id="user_id">
-                            @foreach ($users as $id => $entry)
-                                <option value="{{ $id }}"
-                                    {{ (old('user_id') ? old('user_id') : $order->user->id ?? '') == $id ? 'selected' : '' }}>
-                                    {{ $entry }}</option>
-                            @endforeach
-                        </select>
-                        @if ($errors->has('user'))
-                            <span class="text-danger">{{ $errors->first('user') }}</span>
-                        @endif
-                        <span class="help-block">{{ trans('cruds.order.fields.user_helper') }}</span>
-                    </div>
+
+                    @if (Auth::user()->roles[0]->id == 1)
+                        <div class="form-group">
+                            <label for="user_id">{{ trans('cruds.order.fields.user') }}</label>
+                            <select class="form-control select2 {{ $errors->has('user') ? 'is-invalid' : '' }}"
+                                name="user_id" id="user_id">
+                                @foreach ($users as $id => $entry)
+                                    <option value="{{ $id }}"
+                                        {{ (old('user_id') ? old('user_id') : $order->user->id ?? '') == $id ? 'selected' : '' }}>
+                                        {{ $entry }}</option>
+                                @endforeach
+                            </select>
+                            @if ($errors->has('user'))
+                                <span class="text-danger">{{ $errors->first('user') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.order.fields.user_helper') }}</span>
+                        </div>
+                    {{-- @else
+                        <div class="form-group">
+                            <label for="user_id">{{ trans('cruds.order.fields.user') }}</label>
+                            <input class="form-control {{ $errors->has('user') ? 'is-invalid' : '' }}" type="text"
+                                name="user_id" id="user_id" value="{{ old('user_id', $order->user_id) }}">
+                            @if ($errors->has('user'))
+                                <span class="text-danger">{{ $errors->first('user') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.order.fields.user_helper') }}</span>
+                        </div> --}}
+                    @endif
+                    
                     <div class="form-group">
                         <label for="servicer_id">{{ trans('cruds.order.fields.servicer') }}</label>
                         <select class="form-control select2 {{ $errors->has('servicer') ? 'is-invalid' : '' }}"

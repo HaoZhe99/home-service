@@ -46,7 +46,7 @@ class Order extends Model
         'package_id',
         'user_id',
         'servicer_id',
-        'qr_code_id',
+        // 'qr_code_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -72,10 +72,10 @@ class Order extends Model
         return $this->belongsTo(Servicer::class, 'servicer_id');
     }
 
-    public function qr_code()
-    {
-        return $this->belongsTo(QrCode::class, 'qr_code_id');
-    }
+    // public function qr_code()
+    // {
+    //     return $this->belongsTo(QrCode::class, 'qr_code_id');
+    // }
 
     protected function serializeDate(DateTimeInterface $date)
     {

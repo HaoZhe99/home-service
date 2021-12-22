@@ -103,14 +103,14 @@
                             {{ $order->servicer->name ?? '' }}
                         </td>
                     </tr>
-                    <tr>
+                    {{-- <tr>
                         <th>
                             {{ trans('cruds.order.fields.qr_code') }}
                         </th>
                         <td>
                             {{ $order->qr_code->code ?? '' }}
                         </td>
-                    </tr>
+                    </tr> --}}
                 </tbody>
             </table>
             <div class="form-group">

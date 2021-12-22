@@ -20,7 +20,7 @@ class AddressTableSeeder extends Seeder
                 'id' => 2,
                 'address' => '23, Jln Kempas 55, Taman Kempas',
                 'state_id' => 79,
-                'created_by_id'=>1,
+                'created_by_id'=>4,
             ],
             [
                 'id' => 3,

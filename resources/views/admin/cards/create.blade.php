@@ -63,7 +63,7 @@
                         @endif
                         <span class="help-block">{{ trans('cruds.card.fields.cvv_helper') }}</span>
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="user_id">{{ trans('cruds.card.fields.user') }}</label>
                         <select class="form-control select2 {{ $errors->has('user') ? 'is-invalid' : '' }}"
                             name="user_id" id="user_id">
@@ -76,7 +76,7 @@
                             <span class="text-danger">{{ $errors->first('user') }}</span>
                         @endif
                         <span class="help-block">{{ trans('cruds.card.fields.user_helper') }}</span>
-                    </div>
+                    </div> --}}
                     <div class="form-group">
                         <button class="btn btn-danger" type="submit">
                             {{ trans('global.save') }}

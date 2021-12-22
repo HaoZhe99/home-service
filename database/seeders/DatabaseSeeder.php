@@ -23,7 +23,6 @@ class DatabaseSeeder extends Seeder
             MerchantTableSeeder::class,
             CategoryMerchantTableSeeder::class,
             PackageTableSeeder::class,
-            QRCodeTableSeeder::class,
             ServicerTableSeeder::class,
             OrderTableSeeder::class,
             EbillingTableSeeder::class,

@@ -293,7 +293,7 @@
                         </ul>
                     </li>
                 @endcan
-                @can('qr_code_management_access')
+                {{-- @can('qr_code_management_access')
                     <li class="nav-item has-treeview {{ request()->is("admin/qr-codes*") ? "menu-open" : "" }}">
                         <a class="nav-link nav-dropdown-toggle" href="#">
                             <i class="fa-fw nav-icon fas fa-qrcode">
@@ -319,8 +319,8 @@
                             @endcan
                         </ul>
                     </li>
-                @endcan
-                {{-- @if(file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php')))
+                @endcan --}}
+                @if(file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php')))
                     @can('profile_password_edit')
                         <li class="nav-item">
                             <a class="nav-link {{ request()->is('profile/password') || request()->is('profile/password/*') ? 'active' : '' }}" href="{{ route('profile.password.edit') }}">
@@ -332,7 +332,7 @@
                             </a>
                         </li>
                     @endcan
-                @endif --}}
+                @endif
                 <li class="nav-item">
                     <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
                         <p>

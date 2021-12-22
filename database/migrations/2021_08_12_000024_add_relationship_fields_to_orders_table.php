@@ -17,8 +17,6 @@ class AddRelationshipFieldsToOrdersTable extends Migration
             $table->foreign('user_id', 'user_fk_4592818')->references('id')->on('users');
             $table->unsignedBigInteger('servicer_id')->nullable();
             $table->foreign('servicer_id', 'servicer_fk_4592823')->references('id')->on('servicers');
-            $table->unsignedBigInteger('qr_code_id')->nullable();
-            $table->foreign('qr_code_id', 'qr_code_fk_4592876')->references('id')->on('qr_codes');
         });
     }
 }

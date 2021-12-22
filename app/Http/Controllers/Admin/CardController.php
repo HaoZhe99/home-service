@@ -49,8 +49,14 @@ class CardController extends Controller
 
     public function store(Request $request)
     {
-
-        $card = Card::create($request->all());
+        $card = Card::create([
+            'bank_of_card' => $request->bank_of_card,
+            'name_of_card' => $request->name_of_card,
+            'expired_date' => $request->expired_date,
+            'cvv'          => $request->cvv,
+            'card_number' => $request->card_number,
+            'user_id'      => Auth::id(),
+        ]);
 
         return redirect()->route('admin.cards.index');
     }
@@ -68,7 +74,14 @@ class CardController extends Controller
 
     public function update(Request $request, Card $card)
     {
-        $card->update($request->all());
+        $card->update([
+            'bank_of_card' => $request->bank_of_card,
+            'name_of_card' => $request->name_of_card,
+            'expired_date' => $request->expired_date,
+            'cvv'          => $request->cvv,
+            'card_number' => $request->card_number,
+            'user_id'      => $card->user_id,
+        ]);
 
         return redirect()->route('admin.cards.index');
     }

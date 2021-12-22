@@ -294,30 +294,30 @@ class PermissionsTableSeeder extends Seeder
                 'id'    => 71,
                 'title' => 'payment_method_access',
             ],
-            [
-                'id'    => 72,
-                'title' => 'qr_code_management_access',
-            ],
-            [
-                'id'    => 73,
-                'title' => 'qr_code_create',
-            ],
-            [
-                'id'    => 74,
-                'title' => 'qr_code_edit',
-            ],
-            [
-                'id'    => 75,
-                'title' => 'qr_code_show',
-            ],
-            [
-                'id'    => 76,
-                'title' => 'qr_code_delete',
-            ],
-            [
-                'id'    => 77,
-                'title' => 'qr_code_access',
-            ],
+            // [
+            //     'id'    => 72,
+            //     'title' => 'qr_code_management_access',
+            // ],
+            // [
+            //     'id'    => 73,
+            //     'title' => 'qr_code_create',
+            // ],
+            // [
+            //     'id'    => 74,
+            //     'title' => 'qr_code_edit',
+            // ],
+            // [
+            //     'id'    => 75,
+            //     'title' => 'qr_code_show',
+            // ],
+            // [
+            //     'id'    => 76,
+            //     'title' => 'qr_code_delete',
+            // ],
+            // [
+            //     'id'    => 77,
+            //     'title' => 'qr_code_access',
+            // ],
             [
                 'id'    => 78,
                 'title' => 'profile_password_edit',

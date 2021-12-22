@@ -55,39 +55,42 @@
                         @endif
                         <span class="help-block">{{ trans('cruds.user.fields.phone_helper') }}</span>
                     </div>
-                    <div class="form-group">
-                        <label class="required" for="roles">{{ trans('cruds.user.fields.roles') }}</label>
-                        <div style="padding-bottom: 4px">
-                            <span class="btn btn-info btn-xs select-all"
-                                style="border-radius: 0">{{ trans('global.select_all') }}</span>
-                            <span class="btn btn-info btn-xs deselect-all"
-                                style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
+                    @if (Auth::user()->roles[0]->id == 1) 
+                        <div class="form-group">
+                            <label class="required" for="roles">{{ trans('cruds.user.fields.roles') }}</label>
+                            <div style="padding-bottom: 4px">
+                                <span class="btn btn-info btn-xs select-all"
+                                    style="border-radius: 0">{{ trans('global.select_all') }}</span>
+                                <span class="btn btn-info btn-xs deselect-all"
+                                    style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
+                            </div>
+                            <select class="form-control select2 {{ $errors->has('roles') ? 'is-invalid' : '' }}"
+                                name="roles[]" id="roles" multiple required>
+                                @foreach ($roles as $id => $role)
+                                    <option value="{{ $id }}"
+                                        {{ in_array($id, old('roles', [])) ? 'selected' : '' }}>{{ $role }}</option>
+                                @endforeach
+                            </select>
+                            @if ($errors->has('roles'))
+                                <span class="text-danger">{{ $errors->first('roles') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.user.fields.roles_helper') }}</span>
                         </div>
-                        <select class="form-control select2 {{ $errors->has('roles') ? 'is-invalid' : '' }}"
-                            name="roles[]" id="roles" multiple required>
-                            @foreach ($roles as $id => $role)
-                                <option value="{{ $id }}"
-                                    {{ in_array($id, old('roles', [])) ? 'selected' : '' }}>{{ $role }}</option>
-                            @endforeach
-                        </select>
-                        @if ($errors->has('roles'))
-                            <span class="text-danger">{{ $errors->first('roles') }}</span>
-                        @endif
-                        <span class="help-block">{{ trans('cruds.user.fields.roles_helper') }}</span>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-check {{ $errors->has('verify') ? 'is-invalid' : '' }}">
-                            <input type="hidden" name="verify" value="0">
-                            <input class="form-check-input" type="checkbox" name="verify" id="verify" value="1"
-                                {{ old('verify', 0) == 1 ? 'checked' : '' }}>
-                            <label class="form-check-label" for="verify">{{ trans('cruds.user.fields.verify') }}</label>
+                        <div class="form-group">
+                            <div class="form-check {{ $errors->has('verify') ? 'is-invalid' : '' }}">
+                                <input type="hidden" name="verify" value="0">
+                                <input class="form-check-input" type="checkbox" name="verify" id="verify" value="1"
+                                    {{ old('verify', 0) == 1 ? 'checked' : '' }}>
+                                <label class="form-check-label" for="verify">{{ trans('cruds.user.fields.verify') }}</label>
+                            </div>
+                            @if ($errors->has('verify'))
+                                <span class="text-danger">{{ $errors->first('verify') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.user.fields.verify_helper') }}</span>
                         </div>
-                        @if ($errors->has('verify'))
-                            <span class="text-danger">{{ $errors->first('verify') }}</span>
-                        @endif
-                        <span class="help-block">{{ trans('cruds.user.fields.verify_helper') }}</span>
-                    </div>
-                    <div class="form-group">
+                    @endif
+                    
+                    {{-- <div class="form-group">
                         <label for="verify_token">{{ trans('cruds.user.fields.verify_token') }}</label>
                         <input class="form-control {{ $errors->has('verify_token') ? 'is-invalid' : '' }}" type="text"
                             name="verify_token" id="verify_token" value="{{ old('verify_token', '') }}">
@@ -95,7 +98,7 @@
                             <span class="text-danger">{{ $errors->first('verify_token') }}</span>
                         @endif
                         <span class="help-block">{{ trans('cruds.user.fields.verify_token_helper') }}</span>
-                    </div>
+                    </div> --}}
                     <div class="form-group">
                         <label for="addresses">{{ trans('cruds.user.fields.address') }}</label>
                         <div style="padding-bottom: 4px">

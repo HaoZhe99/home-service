@@ -24,7 +24,6 @@ class AddressController extends Controller
             $addresses = Address::where('created_by_id', Auth::id())->with(['state'])->get();
         }
 
-
         return view('admin.addresses.index', compact('addresses'));
     }
 

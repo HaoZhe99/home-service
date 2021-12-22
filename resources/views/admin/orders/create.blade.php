@@ -144,7 +144,7 @@
                         @endif
                         <span class="help-block">{{ trans('cruds.order.fields.servicer_helper') }}</span>
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="qr_code_id">{{ trans('cruds.order.fields.qr_code') }}</label>
                         <select class="form-control select2 {{ $errors->has('qr_code') ? 'is-invalid' : '' }}"
                             name="qr_code_id" id="qr_code_id">
@@ -157,7 +157,7 @@
                             <span class="text-danger">{{ $errors->first('qr_code') }}</span>
                         @endif
                         <span class="help-block">{{ trans('cruds.order.fields.qr_code_helper') }}</span>
-                    </div>
+                    </div> --}}
                     <div class="form-group">
                         <button class="btn btn-danger" type="submit">
                             {{ trans('global.save') }}

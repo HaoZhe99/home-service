@@ -23,22 +23,29 @@ class OrderController extends Controller
     public function index()
     {
         abort_if(Gate::denies('order_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
+        
         if (Auth::id() == 1) {
-            $orders = Order::with(['merchant', 'package', 'user', 'servicer', 'qr_code'])->get();
+            $orders = Order::with(['merchant', 'package', 'user', 'servicer'])->get();
             $a = DB::table('role_user')->where('role_id', 3)->get();
             $b = [];
             for ($i=0; $i < count($a) ; $i++) {  
                 array_push($b, $a[$i]->user_id);
             }
             $servicers = Servicer::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        } elseif (Auth::user()->roles[0]->id==2) {
+            $orders = Order::where('user_id', Auth::id())
+                ->with(['merchant', 'package', 'user', 'servicer'])->get();
         } else {
             $orders = Order::where('merchant_id', (Merchant::where('created_by_id', (User::where('id', Auth::id())->first())->id)->first())->id)
-                ->with(['merchant', 'package', 'user', 'servicer', 'qr_code'])->get();
+                ->with(['merchant', 'package', 'user', 'servicer'])->get();
         }
 
-
-        return view('admin.orders.index', compact('orders','servicers'));
+        if (Auth::id() == 1) {
+            return view('admin.orders.index', compact('orders','servicers'));
+        } else {
+            return view('admin.orders.index', compact('orders'));
+        }
+        
     }
 
     public function create()
@@ -66,9 +73,7 @@ class OrderController extends Controller
                 ->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
         }
 
-        $qr_codes = QrCode::pluck('code', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        return view('admin.orders.create', compact('merchants', 'packages', 'users', 'servicers', 'qr_codes'));
+        return view('admin.orders.create', compact('merchants', 'packages', 'users', 'servicers'));
     }
 
     public function store(Request $request)
@@ -95,11 +100,9 @@ class OrderController extends Controller
                 ->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
         }
 
-        $qr_codes = QrCode::pluck('code', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $order->load('merchant', 'package', 'user', 'servicer');
 
-        $order->load('merchant', 'package', 'user', 'servicer', 'qr_code');
-
-        return view('admin.orders.edit', compact('merchants', 'packages', 'users', 'servicers', 'qr_codes', 'order'));
+        return view('admin.orders.edit', compact('merchants', 'packages', 'users', 'servicers', 'order'));
     }
 
     public function update(Request $request, Order $order)
@@ -113,7 +116,7 @@ class OrderController extends Controller
     {
         abort_if(Gate::denies('order_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $order->load('merchant', 'package', 'user', 'servicer', 'qr_code');
+        $order->load('merchant', 'package', 'user', 'servicer');
 
         return view('admin.orders.show', compact('order'));
     }

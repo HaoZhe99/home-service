@@ -38,7 +38,12 @@ class UsersController extends Controller
 
         $roles = Role::pluck('title', 'id');
 
-        $addresses = Address::pluck('address', 'id');
+        if (Auth::user()->roles[0]->id == 1) {
+            $addresses = Address::pluck('address', 'id');
+        } else if(Auth::user()->roles[0]->id == 2){
+            $addresses = Address::where('created_by_id', Auth::id())->pluck('address', 'id');
+        }
+        
 
         return view('admin.users.create', compact('roles', 'addresses'));
     }
@@ -46,7 +51,13 @@ class UsersController extends Controller
     public function store(StoreUserRequest $request)
     {
         $user = User::create($request->all());
-        $user->roles()->sync($request->input('roles', []));
+        
+        if (Auth::user()->roles[0]->id == 1) {
+            $user->roles()->sync($request->input('roles', []));
+        } else if(Auth::user()->roles[0]->id == 2){
+            $user->roles()->sync(2);
+        }
+
         $user->addresses()->sync($request->input('addresses', []));
 
         return redirect()->route('admin.users.index');
@@ -58,7 +69,11 @@ class UsersController extends Controller
 
         $roles = Role::pluck('title', 'id');
 
-        $addresses = Address::pluck('address', 'id');
+        if (Auth::user()->roles[0]->id == 1) {
+            $addresses = Address::pluck('address', 'id');
+        } else if(Auth::user()->roles[0]->id == 2){
+            $addresses = Address::where('created_by_id', Auth::id())->pluck('address', 'id');
+        }
 
         $user->load('roles', 'addresses');
 
@@ -68,7 +83,13 @@ class UsersController extends Controller
     public function update(Request $request, User $user)
     {
         $user->update($request->all());
-        $user->roles()->sync($request->input('roles', []));
+
+        if (Auth::user()->roles[0]->id == 1) {
+            $user->roles()->sync($request->input('roles', []));
+        } else if(Auth::user()->roles[0]->id == 2){
+            $user->roles()->sync(2);
+        }
+        
         $user->addresses()->sync($request->input('addresses', []));
 
         return redirect()->route('admin.users.index');

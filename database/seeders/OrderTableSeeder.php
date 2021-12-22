@@ -30,7 +30,6 @@ class OrderTableSeeder extends Seeder
                 'package_id'    => 1,
                 'user_id'       => 4,
                 'servicer_id'   => 1,
-                'qr_code_id'    => 1,
             ],
             [
                 'id'            => 2,
@@ -46,7 +45,6 @@ class OrderTableSeeder extends Seeder
                 'package_id'    => 4,
                 'user_id'       => 4,
                 'servicer_id'   => 1,
-                'qr_code_id'    => 2,
             ],
         ];
 

@@ -92,7 +92,7 @@ class UsersController extends Controller
 
         if (Auth::user()->roles[0]->id == 1) {
             $addresses = Address::pluck('address', 'id');
-        } else if(Auth::user()->roles[0]->id == 2 || Auth::user()->roles[0]->id == 3 ){
+        } else if(Auth::user()->roles[0]->id == 2 || Auth::user()->roles[0]->id == 3 || Auth::user()->roles[0]->id == 4){
             $addresses = Address::where('created_by_id', Auth::id())->pluck('address', 'id');
         }
 

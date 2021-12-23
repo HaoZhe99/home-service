@@ -39,6 +39,8 @@ class OrderController extends Controller
             $orders = Order::where('merchant_id', (Merchant::where('created_by_id', (User::where('id', Auth::id())->first())->id)->first())->id)
                 ->with(['merchant', 'package', 'user', 'servicer'])->get();
             $servicers = Servicer::where('merchant_id', (Merchant::where('created_by_id', Auth::id())->first())->id)->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        } elseif (Auth::user()->roles[0]->id==4) {
+            $orders = Order::where('servicer_id', (Servicer::where("user_id", Auth::id())->first())->id)->with(['merchant', 'package', 'user', 'servicer'])->get();
         }
 
         if (Auth::id() == 1 || Auth::user()->roles[0]->id==3) {

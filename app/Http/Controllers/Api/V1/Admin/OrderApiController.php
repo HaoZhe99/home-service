@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateOrderRequest;
 use App\Http\Resources\Admin\OrderResource;
 use App\Models\Ebilling;
 use App\Models\Order;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +17,7 @@ class OrderApiController extends Controller
 {
     public function index()
     {
-        return new OrderResource(Order::with(['merchant', 'package', 'user', 'servicer', 'qr_code'])->get());
+        return new OrderResource(Order::with(['merchant', 'package', 'user', 'servicer'])->get());
     }
 
     public function store(Request $request)
@@ -39,7 +40,7 @@ class OrderApiController extends Controller
 
     public function show(Order $order)
     {
-        return new OrderResource($order->load(['merchant', 'package', 'user', 'servicer', 'qr_code','user.addresses']));
+        return new OrderResource($order->load(['merchant', 'package', 'user', 'servicer','user.addresses']));
     }
 
     public function update(Request $request, Order $order)
@@ -62,16 +63,16 @@ class OrderApiController extends Controller
 
     public function newOrder($id)
     {
-        // $order = Order::where('servicer_id', $id)->where('status', 'incomplete')->with(['merchant', 'package', 'user', 'servicer'])->get();
-        $order = Order::where('status', 'incomplete')->with(['merchant', 'package', 'user', 'servicer'])->get();
+        $order = Order::where('servicer_id', $id)->where('status', 'incomplete')->with(['merchant', 'package', 'user', 'servicer'])->get();
+        // $order = Order::where('status', 'incomplete')->with(['merchant', 'package', 'user', 'servicer'])->get();
         return new OrderResource($order);
     }
 
     public function oldOrder($id)
     {
-        // $order = Order::where('servicer_id', $id)->where('status', 'completed')->with(['merchant', 'package', 'user', 'servicer'])->get();
+        $order = Order::where('servicer_id', $id)->where('status', 'completed')->with(['merchant', 'package', 'user', 'servicer'])->get();
 
-        $order = Order::where('status', 'completed')->with(['merchant', 'package', 'user', 'servicer'])->get();
+        // $order = Order::where('status', 'completed')->with(['merchant', 'package', 'user', 'servicer'])->get();
         return new OrderResource($order);
     }
 
@@ -99,6 +100,13 @@ class OrderApiController extends Controller
         // $order = Order::where('servicer_id', $id)->where('status', 'completed')->with(['merchant', 'package', 'user', 'servicer'])->get();
 
         $order = Order::where('merchant_id', $merchant)->with(['merchant', 'user'])->get();
+        return new OrderResource($order);
+    }
+
+    public function orderFilterByUser($userId)
+    {
+        $order = Order::where('user_id', $userId)->with(['merchant', 'user'])->get();
+
         return new OrderResource($order);
     }
 }

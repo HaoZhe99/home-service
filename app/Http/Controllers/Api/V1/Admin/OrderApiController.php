@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateOrderRequest;
 use App\Http\Resources\Admin\OrderResource;
 use App\Models\Ebilling;
 use App\Models\Order;
+use App\Models\Servicer;
 use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
@@ -63,14 +64,14 @@ class OrderApiController extends Controller
 
     public function newOrder($id)
     {
-        $order = Order::where('servicer_id', $id)->where('status', 'incomplete')->with(['merchant', 'package', 'user', 'servicer'])->get();
+        $order = Order::where('servicer_id', (Servicer::where('user_id', $id)->first())->id)->where('status', 'incomplete')->with(['merchant', 'package', 'user', 'servicer'])->get();
         // $order = Order::where('status', 'incomplete')->with(['merchant', 'package', 'user', 'servicer'])->get();
         return new OrderResource($order);
     }
 
     public function oldOrder($id)
     {
-        $order = Order::where('servicer_id', $id)->where('status', 'completed')->with(['merchant', 'package', 'user', 'servicer'])->get();
+        $order = Order::where('servicer_id', (Servicer::where('user_id', $id)->first())->id)->where('status', 'incomplete')->with(['merchant', 'package', 'user', 'servicer'])->get();
 
         // $order = Order::where('status', 'completed')->with(['merchant', 'package', 'user', 'servicer'])->get();
         return new OrderResource($order);

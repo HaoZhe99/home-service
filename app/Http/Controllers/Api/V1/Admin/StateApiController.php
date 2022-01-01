@@ -15,9 +15,9 @@ class StateApiController extends Controller
 {
     public function index()
     {
-        abort_if(Gate::denies('state_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $s = State::pluck('postcode');
 
-        return new StateResource(State::with(['country'])->get());
+        return new StateResource($s);
     }
 
     public function store(StoreStateRequest $request)
@@ -52,5 +52,12 @@ class StateApiController extends Controller
         $state->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function chooseArea($postcode)
+    {
+        $s = State::where("postcode", $postcode)->pluck('area');
+
+        return new StateResource($s);
     }
 }

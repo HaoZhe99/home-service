@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\Admin\UserResource;
+use App\Models\Address;
+use App\Models\State;
 use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
@@ -32,10 +34,10 @@ class UsersApiController extends Controller
 
     public function show(User $user)
     {
-        return new UserResource($user->load(['roles', 'addresses']));
+        return new UserResource($user->load(['roles', 'addresses', 'addresses.state']));
     }
 
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(Request $request, User $user)
     {
         $user->update($request->all());
         $user->roles()->sync($request->input('roles', []));
@@ -100,4 +102,48 @@ class UsersApiController extends Controller
         }
     }
 
+    public function userUpdate(Request $request, User $user)
+    {
+        $user->update([
+            "name" => $request->name,
+            "usrname" => $request->username,
+            "email" => $request->email,
+            "phone" => $request->phone,
+        ]);
+
+        return (new UserResource($user))
+            ->response()
+            ->setStatusCode(Response::HTTP_ACCEPTED);
+    }
+
+    public function userAddAddress(Request $request, User $user)
+    {
+        $postcode = State::where("postcode", $request->state_id)->pluck("id");
+
+        $address = Address::create([
+            'address' => $request->address,
+            'state_id'  => $postcode[0],
+            'created_by_id' => $user->id,
+        ]);
+        
+        $a = Address::where("created_by_id", $user->id)->pluck('id');
+
+        $user->addresses()->sync($a);
+
+        return (new UserResource($user))
+            ->response()
+            ->setStatusCode(Response::HTTP_ACCEPTED);
+    }
+
+    public function userUpdateAddress(Request $request, Address $address)
+    {
+        $postcode = State::where("postcode", $request->state_id)->pluck("id");
+
+        $address->update([
+            'address' => $request->address,
+            'state_id'  => $postcode[0],
+        ]);
+
+        return $address;
+    }
 }

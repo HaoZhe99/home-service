@@ -2,6 +2,9 @@
 
 Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin'], function () {
     // Users
+    Route::post('users/userUpdateAddress/{address}', 'UsersApiController@userUpdateAddress');
+    Route::post('users/userAddAddress/{user}', 'UsersApiController@userAddAddress');
+    Route::post('users/userUpdate/{user}', 'UsersApiController@userUpdate');
     Route::post('users/checkUser', 'UsersApiController@checkUser');
     Route::post('users/register', 'UsersApiController@register');
     Route::post('users/login', 'UsersApiController@login');
@@ -24,6 +27,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin'], 
     Route::apiResource('countries', 'CountryApiController');
 
     // State
+    Route::get('states/chooseArea/{postcode}', 'StateApiController@chooseArea');
     Route::apiResource('states', 'StateApiController');
 
     // Address

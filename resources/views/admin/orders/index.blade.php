@@ -153,7 +153,7 @@
     </div>
     
 @if (Auth::id() == 1 || Auth::user()->roles[0]->id == 3)
-    @if ($orders == null)
+    {{-- @if ($orders == null) --}}
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -192,7 +192,7 @@
                 </div>
             </div>
         </div> 
-    @endif 
+    {{-- @endif  --}}
 @endif
 
 

@@ -23,6 +23,8 @@ class Order extends Model
     public const STATUS_SELECT = [
         'completed'   => 'Completed',
         'incomplete' => 'Incomplete',
+        'pending'   => 'Pending',
+        'cancel' => 'Cancel',
     ];
 
     public $table = 'orders';

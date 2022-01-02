@@ -46,4 +46,11 @@ class CardApiController extends Controller
         return response(null, Response::HTTP_NO_CONTENT);
     }
 
+    public function cardFilterByUser($user)
+    {
+        $card = Card::where("user_id", $user)->get();
+
+        return new CardResource($card);
+    }
+
 }

@@ -46,6 +46,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin'], 
     Route::apiResource('orders', 'OrderApiController');
 
     // Card
+    Route::get('cards/cardFilterByUser/{user}', 'CardApiController@cardFilterByUser');
     Route::apiResource('cards', 'CardApiController');
 
     // Ebilling

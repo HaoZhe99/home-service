@@ -36,6 +36,32 @@
                         @endif
                         <span class="help-block">{{ trans('cruds.order.fields.status_helper') }}</span>
                     </div>
+                    <div class="form-group">
+                        <label for="date" class="required">{{ trans('cruds.order.fields.date') }}</label>
+                        <input class="form-control {{ $errors->has('date') ? 'is-invalid' : '' }}" type="date"
+                            name="date" id="date" value="{{ old('date', '') }}" step="0.01" required>
+                        @if ($errors->has('date'))
+                            <span class="text-danger">{{ $errors->first('date') }}</span>
+                        @endif
+                        <span class="help-block">{{ trans('cruds.order.fields.date_helper') }}</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="required">{{ trans('cruds.order.fields.time') }}</label>
+                        <select class="form-control {{ $errors->has('time') ? 'is-invalid' : '' }}" name="time"
+                            id="time" required>
+                            <option value disabled {{ old('time', null) === null ? 'selected' : '' }}>
+                                {{ trans('global.pleaseSelect') }}</option>
+                            @foreach (App\Models\Order::TIME_SELECT as $key => $label)
+                                <option value="{{ $key }}"
+                                    {{ old('time', '') === (string) $key ? 'selected' : '' }}>{{ $label }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @if ($errors->has('time'))
+                            <span class="text-danger">{{ $errors->first('time') }}</span>
+                        @endif
+                        <span class="help-block">{{ trans('cruds.order.fields.time_helper') }}</span>
+                    </div>
                     {{-- <div class="form-group">
                         <label>{{ trans('cruds.order.fields.payment_method') }}</label>
                         <select class="form-control {{ $errors->has('payment_method') ? 'is-invalid' : '' }}" name="payment_method"

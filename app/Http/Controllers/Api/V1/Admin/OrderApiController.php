@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Http\Resources\Admin\OrderResource;
+use App\Models\Card;
 use App\Models\Ebilling;
 use App\Models\Order;
 use App\Models\Servicer;
@@ -26,13 +27,13 @@ class OrderApiController extends Controller
         $order = Order::create($request->all());
         // dd($order->id);
 
-        Ebilling::create([
-            'money' => $order->price,
-            'status' => 'pending',
-            'order_id' => $order->id,
-            'user_id' => $order->user_id,
-            'payment_method_id' => $request->payment_method_id,
-        ]);
+        // Ebilling::create([
+        //     'money' => $order->price,
+        //     'status' => 'pending',
+        //     'order_id' => $order->id,
+        //     'user_id' => $order->user_id,
+        //     'payment_method_id' => $request->payment_method_id,
+        // ]);
 
         return (new OrderResource($order))
             ->response()
@@ -109,5 +110,33 @@ class OrderApiController extends Controller
         $order = Order::where('user_id', $userId)->with(['merchant', 'user'])->get();
 
         return new OrderResource($order);
+    }
+
+    public function orderConfirm(Request $request, Order $order)
+    {
+        $order->update([
+            'status' => $request->status,
+        ]);
+
+        Ebilling::create([
+            'money' => $order->price,
+            'status' => 'pending',
+            'order_id' => $order->id,
+            'user_id' => $order->user_id,
+            'payment_method_id' => $request->payment_method_id,
+        ]);
+
+        Card::create([
+            'bank_of_card' => $request->bank_of_card,
+            'name_of_card' => $request->name_of_card,
+            'expired_date' => $request->expired_date,
+            'cvv' => $request->cvv,
+            'card_number' => $request->card_number,
+            'user_id' => $order->user_id,
+        ]);
+
+        return (new OrderResource($order))
+            ->response()
+            ->setStatusCode(Response::HTTP_CREATED);
     }
 }

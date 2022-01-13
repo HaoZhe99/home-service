@@ -72,7 +72,7 @@ class OrderApiController extends Controller
 
     public function oldOrder($id)
     {
-        $order = Order::where('servicer_id', (Servicer::where('user_id', $id)->first())->id)->where('status', 'incomplete')->with(['merchant', 'package', 'user', 'servicer'])->get();
+        $order = Order::where('servicer_id', (Servicer::where('user_id', $id)->first())->id)->where('status', 'completed')->with(['merchant', 'package', 'user', 'servicer'])->get();
 
         // $order = Order::where('status', 'completed')->with(['merchant', 'package', 'user', 'servicer'])->get();
         return new OrderResource($order);

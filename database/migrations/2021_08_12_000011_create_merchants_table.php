@@ -14,6 +14,7 @@ class CreateMerchantsTable extends Migration
             $table->string('description')->nullable();
             $table->string('contact_number')->nullable();
             $table->string('status')->nullable();
+            $table->string('delivery_fee')->nullable();
             $table->string('address')->nullable();
             $table->string('ssm_number')->nullable();
             $table->string('ssm_document')->nullable();

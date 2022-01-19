@@ -54,6 +54,15 @@
                         <span class="help-block">{{ trans('cruds.merchant.fields.status_helper') }}</span>
                     </div> --}}
                     <div class="form-group">
+                        <label for="delivery_fee">{{ trans('cruds.merchant.fields.delivery_fee') }} (e.g. above 10KM delivery will be change RM10)</label>
+                        <input class="form-control {{ $errors->has('delivery_fee') ? 'is-invalid' : '' }}" type="text"
+                            name="delivery_fee" id="delivery_fee" value="{{ old('delivery_fee', '') }}">
+                        @if ($errors->has('delivery_fee'))
+                            <span class="text-danger">{{ $errors->first('delivery_fee') }}</span>
+                        @endif
+                        <span class="help-block">{{ trans('cruds.merchant.fields.delivery_fee_helper') }}</span>
+                    </div>
+                    <div class="form-group">
                         <label for="address">{{ trans('cruds.merchant.fields.address') }}</label>
                         <input class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}" type="text"
                             name="address1" id="address" value="{{ old('address', '') }}" style="margin-bottom: 10px">

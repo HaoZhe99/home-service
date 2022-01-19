@@ -169,7 +169,7 @@ class UsersController extends Controller
             'email'    =>  $request->email,
             'password' => Hash::make($request->password),
         ]);
-        $user->roles()->sync(2);
+        $user->roles()->sync(3);
 
         return redirect('/login')->with('status', 'Register Successully!');
     }

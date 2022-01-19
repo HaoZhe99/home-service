@@ -57,6 +57,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.merchant.fields.delivery_fee') }}
+                        </th>
+                        <td>
+                            {{ $merchant->delivery_fee }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.merchant.fields.address') }}
                         </th>
                         <td>
